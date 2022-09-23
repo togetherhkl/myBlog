@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',#注册app的名称
+    'blog.apps.BlogConfig',  # 注册app的名称
 ]
 
 MIDDLEWARE = [
@@ -48,7 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #别忘记激活自己的中间件
+    # 别忘记激活自己的中间件
 ]
 
 ROOT_URLCONF = 'xhBlog.urls'
@@ -71,17 +69,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'xhBlog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+# 数据库配置
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog',
+        'USER': 'remote',
+        'PASSWORD': 'qwer0487',
+        'HOST': '192.168.61.165',
+        'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -101,21 +105,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
 
-LANGUAGE_CODE='zh-hans'#修改语言
+LANGUAGE_CODE = 'zh-hans'  # 修改语言
 # TIME_ZONE = 'UTC'
-TIME_ZONE='Asia/Shanghai'#修改时候时间区域
+TIME_ZONE = 'Asia/Shanghai'  # 修改时候时间区域
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -126,6 +128,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#MoalForm上传文件到media目录，添加的配置,可以在浏览器上访问文件
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL="/media/"
+# MoalForm上传文件到media目录，添加的配置,可以在浏览器上访问文件
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
