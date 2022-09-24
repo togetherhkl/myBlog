@@ -15,6 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# 以下三句引入是为了使用ModalFOrm上传文件到media目录进行的引入
+from django.urls import path, re_path  # re_path为正则表达式
+from django.views.static import serve
+from django.conf import settings
+from blog.views import home
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    # 寻找meida的文件，serve是django内置弄号好的，需要在setting中进行配置
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
+
+    #首页
+    path('home/',home.home_display),#首页展示
+
+
 ]
