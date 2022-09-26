@@ -5,56 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scal=1.0">
     <title>Redamancy</title>
-    <!--<link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1/css/bootstrap.css' %}">-->
     <link href='https://css.gg/css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/header_nav.css' %}">
+    {% block css %}{% endblock %}
 </head>
 
 <body>
-<header>
-    <div class="container">
-        <div class="header">
-            <div class="header-div">
-                <div class="title-div">
-                    <img src="{% static 'img/img.png' %}">
-                    <h1>Redamancy</h1>
-                </div>
-                <div class="search-div">
-                    <button type="button" id="btn-search" class="search">
-                        <i class="gg-search"></i>
-                    </button>
-                    <input type="text" name="search" class="search">
-                </div>
+<div class="container">
+    <div class="header">
+        <div class="header-div">
+            <div class="title-div">
+                <img src="{% static 'img/img.png' %}">
+                <h1>Redamancy</h1>
             </div>
-            <div class="nav-div">
-                <a href="#">首页</a>
-                {% for obj in menu %}
-                    <div class="subnav">
-                        <button class="subnavbtn">{{ obj.fcategory_name }}</button>
-                        <div class="subnav-content">
-                            <!--<a href="#">web安全</a>
-                            <a href="#">CTF</a>
-                            <a href="#">红蓝对抗</a>-->
-                            {% for obj in category.pop %}
-                                <a href="#">{{ obj }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
-                <div class="subnav">
-                    <button class="subnavbtn">安全相关 <i class="fa fa-caret-down"></i></button>
-                    <div class="subnav-content">
-                        <a href="#">web安全</a>
-                        <a href="#">CTF</a>
-                        <a href="#">红蓝对抗</a>
-                    </div>
+            <div class="search-div">
+                <button type="button" id="btn-search" class="search">
+                    <i class="gg-search"></i>
+                </button>
+                <input type="text" name="search" class="search">
+            </div>
+        </div>
+        <div class="nav-div" id="nav-div">
+            <a href="/home/display/" id="nav-home">首页</a>
+            <div class="subnav" id="subnav">
+                <button class="subnavbtn">更多</button>
+                <div class="subnav-content">
+                    <a href="#">登录</a>
+                    <a href="#">退出</a>
+                    <a href="#">设置</a>
                 </div>
             </div>
         </div>
     </div>
-</header>
+</div>
+
+{% block content %}{% endblock %}
 </body>
 <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
-<!--<script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.js' %}"></script>-->
-
+<script src="{% static 'js/header_nav.js' %}"></script>
+{% block js %}{% endblock %}
 </html>

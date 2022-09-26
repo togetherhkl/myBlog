@@ -27,7 +27,9 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
 
     #首页
-    path('home/',home.home_display),#首页展示
+    path('home/',home.home_nav),#头部栏
+    path('home/display/',home.home_display),#主页显示
+
 
 
 ]
