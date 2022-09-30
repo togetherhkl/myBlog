@@ -27,6 +27,7 @@ class Category(models.Model):
     category_description=models.TextField(verbose_name='分类描述')
     category_createdate=models.DateTimeField(verbose_name='创建时间')
     fcategory=models.ForeignKey(verbose_name='父分类',to='FCategory',to_field='id',on_delete=models.CASCADE)
+    jumpaddress=models.CharField(verbose_name='跳转地址',max_length=128,default="#")
 
 class Users(models.Model):
     '''用户类'''
@@ -72,6 +73,12 @@ class Articles(models.Model):
         (1,'置顶')
     )
     article_top=models.SmallIntegerField(verbose_name='是否置顶',choices=top_choices,default=0)
+    status_choices=(
+        (1,'草稿'),
+        (2,'已发表'),
+    )
+    article_status=models.SmallIntegerField(verbose_name='发表状态',choices=status_choices,default=1)
+    article_img=models.FileField(verbose_name='文章贴图',null=True,blank=True,upload_to='article_img/')
     article_view=models.BigIntegerField(verbose_name='浏览量',default=0)
     article_like=models.BigIntegerField(verbose_name='点赞量',default=0)
     article_comment=models.BigIntegerField(verbose_name='评论数',default=0)

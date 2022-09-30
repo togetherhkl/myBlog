@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scal=1.0">
+    <title>Redamancy</title>
+    <link href='https://css.gg/css' rel='stylesheet'>
+    <!-- ⚠️生产环境请指定版本号，如 https://cdn.jsdelivr.net/npm/vditor@x.x.x/dist... -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css"/>
+     <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>-->
+   <!-- <link rel="stylesheet" href="../../node_modules/vditor/dist/index.css">
+    <script src="{% static 'plugins/node_modules/test.js' %}"></script>-->
+    <style>
+        .edit[data-type="img"]{
+            width: 100px;
+            height: 100px;
+            background-color: #1b6d85;
+        }
+    </style>
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+欢迎来到编辑区域
+<div class="edit" data-type="img"></div>
+<div class="edit" style="width: 100px;height: 100px;background-color: red"></div>
+<div id="vditor"></div>
+<script defer type="text/javascript">
+    window.onload = function () {
+        var vditor = new Vditor(document.getElementById('vditor'), {
+            cache: {
+                enable: false
+            },
+            height:400,
+            width:800,
+            "value":" ",
+            "mode": "ir",
+
+        });
+        document.getElementById('vditor').append(vditor)
+    }
+</script>
+</body>
+</html>

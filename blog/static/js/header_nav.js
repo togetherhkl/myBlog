@@ -11,7 +11,7 @@ function NavLoad(){
                 html='<div class="subnav">' +
                     '<button class="subnavbtn">'+value+'</button><div class="subnav-content">'
                 $.each(res.category[index],(ind,item)=>{
-                    html+='<a href="#">'+item+'</a>'
+                    html+='<a href="'+item[1]+'">'+item[0]+'</a>'
                 })
                 html+='</div></div>'
                 $('#subnav').before(html)//在设置前加入html元素

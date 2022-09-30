@@ -19,17 +19,21 @@ from django.urls import path
 from django.urls import path, re_path  # re_path为正则表达式
 from django.views.static import serve
 from django.conf import settings
-from blog.views import home
+from blog.views import home, create,upload
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # 寻找meida的文件，serve是django内置弄号好的，需要在setting中进行配置
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
 
-    #首页
-    path('home/',home.home_nav),#头部栏
-    path('home/display/',home.home_display),#主页显示
+    # 首页
+    path('home/', home.home_nav),  # 头部栏
+    path('home/display/', home.home_display),  # 主页显示
 
+    # 创作
+    path('create/article/', create.create_article),  # 创作文章
 
+    #文件上传
+    path('upload/inarticle/img/',upload.upload_inatricle_img),#上传文章内容的图片
 
 ]

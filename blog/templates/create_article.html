@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/create_article.css' %}">
+    <link href='https://css.gg/image.css' rel='stylesheet'>
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>-->
+    <link rel="stylesheet" href="{% static 'plugins/node_modules/vditor/dist/index.css' %}">
+    <script src="{% static 'plugins/node_modules/vditor/dist/index.min.js' %}"></script>
+    <title>文章编辑</title>
+</head>
+<body>
+{% csrf_token %}
+<div class="container">
+    <header>
+        <div class="header-left"></div>
+        <div class="header-right">
+            <button>保存草稿</button>
+            <button>发 表</button>
+        </div>
+    </header>
+    <div class="edit">
+        <div class="edit-container">
+            <div class="article-img">
+                <button class="btn-img"><i class="gg-image"></i>添加封面</button>
+            </div>
+            <input type="text" name="title" class="title" placeholder="请输入标题">
+            <div id="vditor"></div>
+        </div>
+
+    </div>
+</div>
+<script >
+    let key={% csrf_token %}
+</script>
+<script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+<script src="{% static 'js/create_article.js' %}"></script>
+
+</body>
+</html>

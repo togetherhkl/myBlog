@@ -20,7 +20,11 @@ def home_nav(request):
         fcat.append(obj.fcategory_name)#获取父分类的名称
         category=models.Category.objects.filter(fcategory_id=obj.id)#某个分类的所有子分类
         for obj2 in category:
-            categorie.append(obj2.category_name)#把名字放入一个列表
+            temp=[]
+            temp.append(obj2.category_name)
+            temp.append(obj2.jumpaddress)
+            # print(temp)
+            categorie.append(temp)#把名字放入一个列表
         categories.append(categorie)#把父类的子类放入列表
     content = {
         'menu': fcat,
