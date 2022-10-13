@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>登录</title>
+</head>
+<body>
+<div class="container">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="login-div">
+            <div class="title">
+                <h2>欢迎登录/注册用户</h2>
+                <p>这个位置是我要说明的内容</p>
+            </div>
+            <div class="content">
+                <div class="username">
+                    <span>用户名：</span>
+                    {{ form.username }}
+                    <span class="error-span">{{ form.username.errors.0 }}</span>
+                    <!-- <input type="text" name="username" placeholder="用户名">-->
+                </div>
+                <div class="password">
+                    <span>密  码：</span>
+                    {{ form.password }}
+                    <span class="error-span"> {{ form.password.errors.0 }}</span>
+                    <!-- <input type="password" name="password" placeholder="密码">-->
+                </div>
+                <div class="imgverify-div">
+                    <div class="lab-input">
+                        <label>验证码：</label>
+                        <!--<input type="text" name="img-code" placeholder="请输入验证码">-->
+                        {{ form.verifycode }}
+                        <span class="error-span">{{ form.verifycode.errors.0 }}</span>
+                    </div>
+                    <div class="image">
+                        <img id="img-verify" src='/image/code/'>
+                    </div>
+                </div>
+            </div>
+            <div class="option">
+                <div class="log">
+                    <p>我是老用户（默认）</p>
+                    <button class="log-btn" type="submit" value="登录">登录</button>
+                    <button class="forget-pwd-btn" id="forget-pwd-btn" type="button">忘记密码</button>
+                </div>
+                <div class="sing-in">
+                    <p>我是新用户</p>
+                    <button class="sing-in-btn" id="sing-in-btn" type="button">注册</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="modal-title"><i class="gg-format-justify"></i>注册用户</span>
+            <span class="close" id="close">&times;</span>
+        </div>
+        <form class="reg-form" id="reg-form" method="post">
+            <div class="modal-body">
+                {% for obj in formset %}
+                    <div class="body-items">
+                        <label>{{ obj.label }}:</label>
+                        {{ obj }}
+                        <span style="color: red" class="error"></span>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+        <div class="modal-footer">
+            <div class="btns">
+                <button type="button" class="btn-cansel" id="btnCansel">取 消</button>
+                <button type="submit" class="btn-sure" id="btnSure">确 定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

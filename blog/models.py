@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class FTag(models.Model):
@@ -14,6 +15,8 @@ class Tag(models.Model):
     tag_createdate=models.DateTimeField(verbose_name='创建时间')
     #级联删除
     ftag=models.ForeignKey(verbose_name='父标签',to='FTag',to_field='id',on_delete=models.CASCADE)
+    def __str__(self):
+        return self.tag_name
 
 class FCategory(models.Model):
     '''父分类表'''
@@ -28,6 +31,8 @@ class Category(models.Model):
     category_createdate=models.DateTimeField(verbose_name='创建时间')
     fcategory=models.ForeignKey(verbose_name='父分类',to='FCategory',to_field='id',on_delete=models.CASCADE)
     jumpaddress=models.CharField(verbose_name='跳转地址',max_length=128,default="#")
+    def __str__(self):
+        return self.category_name
 
 class Users(models.Model):
     '''用户类'''
@@ -41,8 +46,8 @@ class Users(models.Model):
     user_email=models.CharField(verbose_name='用户邮箱',max_length=32,null=True,blank=True)
     user_phone=models.CharField(verbose_name='用户手机',max_length=11,null=True,blank=True,unique=True)
     user_pwd=models.CharField(verbose_name='用户密码',max_length=128)
-    user_img=models.FileField(verbose_name='用户头像',upload_to='usersimg/',max_length=128)
-    user_createdate=models.DateTimeField(verbose_name='注册时间')
+    user_img=models.FileField(verbose_name='用户头像',upload_to='usersimg/',max_length=128,default='media/user_avatar/default_avatar.png')
+    user_createdate=models.DateTimeField(verbose_name='注册时间',default=timezone.now())
     user_birth=models.DateField(verbose_name='出生日期',null=True,blank=True)
     auth_choices=(
         (1,'普通权限'),
@@ -68,6 +73,7 @@ class Articles(models.Model):
     article_updatedate=models.DateTimeField(verbose_name='更新日期')
     #如果分类别删除，博文的分类置空
     category=models.ForeignKey(verbose_name='博文分类',to='Category',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)
+    tag=models.ForeignKey(verbose_name='标签',to='Tag',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)
     top_choices=(
         (0,'不置顶'),
         (1,'置顶')
@@ -76,9 +82,10 @@ class Articles(models.Model):
     status_choices=(
         (1,'草稿'),
         (2,'已发表'),
+        (3,'审核中')
     )
-    article_status=models.SmallIntegerField(verbose_name='发表状态',choices=status_choices,default=1)
-    article_img=models.FileField(verbose_name='文章贴图',null=True,blank=True,upload_to='article_img/')
+    article_status=models.SmallIntegerField(verbose_name='发表状态',choices=status_choices,default=3)
+    article_img=models.CharField(verbose_name='文章贴图',null=True,blank=True,max_length=100)
     article_view=models.BigIntegerField(verbose_name='浏览量',default=0)
     article_like=models.BigIntegerField(verbose_name='点赞量',default=0)
     article_comment=models.BigIntegerField(verbose_name='评论数',default=0)

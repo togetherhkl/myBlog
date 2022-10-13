@@ -1,0 +1,291 @@
+
+*{
+    box-sizing: border-box;
+}
+body{
+    font-size: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+    /*background-image:url("../img/bgimage.jpg");*/
+}
+body::before{
+    content:'';
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background:transparent url("../img/bgimage.jpg") center center no-repeat;
+    filter:blur(5px);
+    z-index:-1;
+    background-size:cover;
+}
+/*登录框样式*/
+.container{
+    width: 600px;
+    height: auto;
+    padding: 10px 30px;
+    background-color: rgba(88,87,86,0.6);
+    border-radius: 20px;
+    color: #eeeeee;
+    box-shadow: 0 12px 5px -10px rgba(0,0,0,0.1), 0 0 4px 0 rgba(0,0,0,0.1);;
+}
+.login-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+.title p{
+    font-size: small;
+    text-align: center;
+}
+.option{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.option.log{
+    flex: 2;
+    font-size: 15px;
+}
+.option button:hover{
+    cursor: pointer;
+}
+.option.sing-in{
+    flex: 1;
+    font-size: 15px;
+    cursor: pointer;
+}
+.content{
+    margin: 30px;
+    font-weight: bold;
+    border: 2px solid black;
+}
+.username{
+    display: flex;
+    margin: 20px;
+}
+.password{
+    display: flex;
+    margin: 20px;
+}
+.username span{
+    display: flex;;
+    width: 120px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+.username input{
+    width: 200px;
+}
+.password span{
+    display: flex;
+    width: 120px;
+    align-items: center;
+    justify-content: center;
+}
+.password input{
+    width: 200px;
+}
+.container input:focus{
+    outline: none;
+}
+.container input{
+    height: 40px;
+    font-size: 13px;
+    border: none;
+    border-radius: 5px;
+}
+
+.container button{
+    padding: 10px 10px;
+    background-color: steelblue;
+    border: 0;
+    border-radius: 10px;
+}
+.forget-pwd-btn{
+    background-color: #eeeeee;
+}
+.error-span{
+    color: red;
+    font-size: 15px;
+}
+
+/*验证码*/
+.imgverify-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 10px 0;
+}
+.imgverify-div .image img{
+    border-radius: 8px;
+}
+.imgverify-div .image img:hover{
+    cursor: pointer;
+}
+.lab-input{
+    flex: 2;
+    padding: 0 0 0 40px;
+}
+.lab-input input{
+    width: 120px;
+    margin-left: 30px;
+}
+.image{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+/*注册模态框*/
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+.modal {
+    display: none ;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 4;
+    overflow: scroll; /* Enable scroll if needed */
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    scrollbar-width: none;/*火狐隐藏滚动条*/
+
+}
+/* scroll-view 不显示滚动条 */
+.modal::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+  background-color: transparent;
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    top: 100px;
+    width: 500px;
+    height: auto;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.modal-content .modal-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 10px 10px 0 0;
+    padding: 0 10px;
+    border-bottom: 1px solid black;
+}
+.modal-header span{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+.modal-header span i{
+    margin-right: 8px;
+}
+.close {
+    color: white;
+    font-size: 40px !important;
+    margin-left: auto;/*放到最右边*/
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content .modal-body{
+    padding: 10px;
+}
+/*中间的内容*/
+.modal-body .body-items label{
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+}
+.modal-body .body-items{
+    margin: 20px 0;
+}
+.modal-body input{
+    width: 150px;
+}
+.modal-body input:focus{
+    outline: none;
+}
+.modal-body .error{
+    font-size: 12px;
+    font-family: Ubuntu,sans-serif;
+    font-weight: bold;
+}
+/*模态框底部*/
+.modal-content .modal-footer{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 0 0 10px 10px;
+    padding: 0 10px;
+    border-top: 1px solid black;
+}
+.modal-footer .btns button{
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Ubuntu,sans-serif;
+    border-radius: 20px;
+    border: none;
+}
+#btnSure{
+    background-color: dodgerblue;
+    color: #eeeeee;
+}
+#btnSure:hover{
+    opacity: 0.8;
+}

@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 import random
 
+from blog.utils.ImgSave import ImgSave,ImgDel
 
 def upload_inatricle_img(request):
     '''上传文章中所使用的图片'''
@@ -49,3 +50,35 @@ def upload_inatricle_img(request):
         }
     }
     return JsonResponse(res)
+
+def upload_cover_img(request):
+    '''上传文章封面图'''
+    # print(request.FILES.get('img'))
+    #如果是添加或者修改封面
+    if request.FILES:
+        img=request.FILES.get('img')
+        path=os.path.join('media', 'article-cover-img')
+        imgname,url=ImgSave(img,path)
+        data={
+            'msg':'上传成功',
+            'imgname':imgname,
+            'url':url,
+        }
+        #如果前端点击的是更换封面，需要把原有的封面撒谎删除
+        if request.POST.get('labflag')=='1':
+            #获取传过来的封面图名称
+            delfile_path=os.path.join('media', 'article-cover-img',request.POST.get('imgname'))
+            # print(delfile_path)
+            #调用删除函数
+            ImgDel(delfile_path)
+        return JsonResponse(data)
+    #如果是删除封面
+    else:
+        print(request.POST.get('imgname'))
+        delfile_path = os.path.join('media', 'article-cover-img', request.POST.get('imgname'))
+        ImgDel(delfile_path)
+        data={
+            'msg':'删除成功',
+        }
+        return JsonResponse(data)
+

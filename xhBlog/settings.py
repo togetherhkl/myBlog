@@ -117,8 +117,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+# USE_TZ = True
+USE_TZ = False#不启用时区时间
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 

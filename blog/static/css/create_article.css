@@ -1,7 +1,8 @@
-*{
+* {
     box-sizing: border-box;
 }
-body{
+
+body {
     width: 100vw;
     height: 100vh;
     overflow: auto;
@@ -9,14 +10,16 @@ body{
     display: flex;
     flex-direction: column;
 }
-.container{
+
+.container {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
+
 /*头部导航*/
-header{
+header {
     width: 100%;
     height: 75px;
     padding: 0 10px;
@@ -24,55 +27,438 @@ header{
     background-color: white;
     z-index: 8;
     border-bottom: 2px solid silver;
-    box-shadow: 0 0px 5px silver;
+    box-shadow: 0 0 5px silver;
     display: flex;
 }
-/*头部做部分*/
-header .header-left{
+
+/*头部左部分*/
+header .header-left {
     flex: 2;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
 }
+
+.header-left .img-div {
+    width: 80px;
+    height: 100%;
+}
+
+.header-left .img-div img {
+    width: 100%;
+    height: 100%;
+}
+
 /*头部右部分*/
-header .header-right{
+header .header-right {
     flex: 5;
     display: flex;
     align-items: center;
     justify-content: right;
 }
+
+/*设置右边的各种控件的样式*/
+header .header-right button {
+    background-color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 18px;
+    margin: 0 8px;
+}
+
+/*中间的图标按钮*/
+header .header-right .btn-icon:hover {
+    background-color: #c5c3c3;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/*保存按钮*/
+header .header-right .btn-save {
+    background-color: #d2841f;
+    color: #eee;
+}
+
+/*发表按钮*/
+header .header-right .btn-publication {
+    background-color: dodgerblue;
+    color: #eeeeee;
+}
+
+header .header-right .btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/*设置分隔线*/
+header .header-right .division {
+    width: 1px;
+    border: 1px solid #8d8a8a;
+    height: 40px;
+}
+
+/*设置图标*/
+header .header-right .btn {
+    width: 100px;
+}
+
+header .header-right .btn i {
+    margin-right: 8px;
+}
+
+/*设置头像*/
+header .header-right .avatar {
+    margin: 0 15px;
+}
+
+header .header-right .avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
 /*文章编辑区域*/
-.edit{
+.edit {
     flex: 1;
 }
-.edit-container{
+
+.edit-container {
     height: 100%;
     margin-top: 90px;
     padding: 0 250px;
     position: relative;
 }
-/*文章封面图片的显示*/
-.edit-container .btn-img{
+
+/*添加封面图片*/
+.edit-container .btn-img-file {
+    position: absolute;
+    /*opacity: 1;*/
+    clip: rect(0, 0, 0, 0);
+}
+
+/*自定义上传文件的按钮*/
+.edit-container label.button-img {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: steelblue;
+    padding: 0 6px;
+    width: 100px;
+    height: 32px;
+    color: #ffffff;
+    background: lightblue;
+    border-radius: 5px;
     cursor: pointer;
-    background-color: silver;
-    padding: 5px 8px;
-    border-radius: 6px;
-    border: none;
+    letter-spacing: 1px;
     opacity: 0;
-
+    font-weight: bold;
 }
-.edit-container .btn-img i{
+
+.edit-container .btn-img {
+    display: flex;
+    align-items: center;
+}
+
+/*添加封面图片的显示效果*/
+.article-cover-size {
+    width: 100%;
+    height: 300px;
+    background-repeat: no-repeat;
+}
+
+.edit-container .btn-img i {
     margin-right: 8px;
 }
+
+.edit-container .article-img {
+    display: flex;
+    position: relative;
+}
+
+.edit-container .article-img .mod-img-container {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+/*修改封面按钮的下拉框*/
+.mod-img-container .mod-select-content {
+    width: 150px;
+    border: 1px solid silver;
+    box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 8px 1px;
+    margin: 3px 0;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+/*修改封面按钮*/
+.mod-img-container .btn-mod-img {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 18px;
+    background-color: lightblue;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.mod-img-container .btn-mod-img:hover {
+    opacity: 0.8;
+}
+
+.mod-img-container .mod-select-content button {
+    display: flex;
+    align-items: center;
+    border: none;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.mod-img-container .mod-select-content label {
+    padding: 3px 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    border: none;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.mod-img-container .mod-select-content .span1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mod-img-container .mod-select-content .span2 {
+    flex: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mod-img-container .mod-select-content button:hover {
+    background-color: #d2d1d1;
+}
+
+.mod-img-container .mod-select-content label:hover {
+    background-color: #d2d1d1;
+}
+
 /*标题的输入*/
-.edit-container input.title{
+.edit-container input.title {
     height: 45px;
     width: 100%;
     font-weight: bold;
     font-size: 20px;
     border: none;
 }
-.edit-container input:focus{
+
+.edit-container input:focus {
     outline: none;
 }
+
+/*模态框*/
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    bottom:0;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: scroll; /* Enable scroll if needed */
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    scrollbar-width: none;/*火狐隐藏滚动条*/
+
+}
+/* scroll-view 不显示滚动条 */
+.modal::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+  background-color: transparent;
+}
+
+
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 0 60px 0;
+    width: 800px;
+    height: auto;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.modal-content .modal-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 10px 10px 0 0;
+    padding: 0 10px;
+    border-bottom: 1px solid black;
+}
+.modal-header span{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+.modal-header span i{
+    margin-right: 8px;
+}
+.close {
+    color: white;
+    font-size: 40px !important;
+    margin-left: auto;/*放到最右边*/
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content .modal-body{
+    padding: 10px;
+}
+.modal-body .body-items{
+    margin: 20px 0;
+}
+.modal-body .body-items label{
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+}
+/*modleform的调整*/
+#id_article_img{
+    position: absolute;
+    visibility: hidden;
+}
+#show-article-cover{
+    z-index: 2;
+}
+#show-article-cover{
+    width: 300px;
+    height: 200px;
+    font-family: Ubuntu,sans-serif;
+    font-weight: bold;
+    margin-left: 8px;
+}
+#id_article_title:focus{
+    outline: none;
+}
+#id_article_title{
+    font-weight: bold;
+    font-size: 15px;
+    border: 2px solid #888888;
+    border-radius: 10px;
+}
+.modal-body label{
+    font-weight: bold;
+    font-family: Ubuntu,sans-serif;
+}
+.modal-body select{
+    height: 30px;
+    width: 80px;
+    font-family: Ubuntu,sans-serif;
+    background-color: #a6e1ec;
+    border: none;
+    margin: 0 8px;
+    border-radius: 10px;
+}
+#id_article_digest:focus{
+    outline: none;
+}
+#id_article_digest{
+    resize: none;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 2px solid #888888;
+    width: 400px;
+    height: 200px;
+}
+#btn-get-digest{
+    margin-left: 8px;
+    padding: 6px;
+    width: 80px;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #9B703F;
+    color: #eeeeee;
+    font-weight: bold;
+    font-family: Ubuntu,sans-serif;
+
+}
+/*模态框底部*/
+.modal-content .modal-footer{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 0 0 10px 10px;
+    padding: 0 10px;
+    border-top: 1px solid black;
+}
+.modal-footer .btns button{
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Ubuntu,sans-serif;
+    border-radius: 20px;
+    border: none;
+}
+#btnSure{
+    background-color: dodgerblue;
+    color: #eeeeee;
+}
+#btnSure:hover{
+    opacity: 0.8;
+}
+
+
+

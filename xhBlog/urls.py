@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import path, re_path  # re_path为正则表达式
 from django.views.static import serve
 from django.conf import settings
-from blog.views import home, create,upload
+from blog.views import home, create,upload,account
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -32,8 +32,16 @@ urlpatterns = [
 
     # 创作
     path('create/article/', create.create_article),  # 创作文章
+    path('create/publish/',create.create_punlis),#获取发表模态框所需要的数据
 
     #文件上传
     path('upload/inarticle/img/',upload.upload_inatricle_img),#上传文章内容的图片
+    path('upload/cover/img/',upload.upload_cover_img),#上传文章封面图
+
+    # 登录
+    path('login/', account.account_login),  # 登录
+    path('login/adduser/',account.account_adduser),#注册用户
+    path('logout/', account.account_logout),  # 注销
+    path('image/code/', account.image_code),  # 获取验证码图片
 
 ]
