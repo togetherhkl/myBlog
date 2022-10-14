@@ -69,7 +69,7 @@ class Articles(models.Model):
     article_content=models.TextField(verbose_name='博文内容')
     #作者账户被删除，那么他的文章也会被删除
     user=models.ForeignKey(verbose_name='发表用户',to='Users',to_field='id',on_delete=models.CASCADE)
-    article_createdate=models.DateTimeField(verbose_name='发表日期')
+    article_createdate=models.DateTimeField(verbose_name='发表日期',default=timezone.now())
     article_updatedate=models.DateTimeField(verbose_name='更新日期')
     #如果分类别删除，博文的分类置空
     category=models.ForeignKey(verbose_name='博文分类',to='Category',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)

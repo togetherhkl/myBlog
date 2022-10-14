@@ -23,7 +23,7 @@
             <h2>欢迎使用编辑功能</h2>
         </div>
         <div class="header-right">
-            <button class="btn-save btn"><i class="gg-pen"></i>保 存</button>
+            <button class="btn-save btn" id="btn-save"><i class="gg-pen"></i>保 存</button>
             <button class="btn-publication btn"><i class="gg-file-add"></i>发 表</button>
             <div class="division"></div>
             <button class="btn-icon" title="添加"><i class="gg-math-plus"></i></button>
@@ -43,7 +43,7 @@
                 <label for="btn-img" class="button-img" id="lab-addimg"><i class="gg-software-upload"></i>选择封面</label>
                 <div class="mod-img-container" id="mod-img-container"></div>
             </div>
-            <input type="text" name="title" class="title" placeholder="请输入标题">
+            <input type="text" name="title" class="title" id="title" placeholder="请输入标题">
             <div id="vditor"></div>
         </div>
 
@@ -63,7 +63,7 @@
                     <div class="body-items">
                         <label>{{ field.label }}:</label>
                         {{ field }}
-                        <span style="color: red">{{ field.errors.0 }}</span>
+                        <span style="color: red" class="error"></span>
                     </div>
                 {% endfor %}
             </div>
@@ -78,7 +78,7 @@
 </div>
 
 <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
-<script src="{% static 'js/create_article.js' %}"></script>
+<script src="{% static 'js/create_article.js' %}" ></script>
 
 </body>
 </html>

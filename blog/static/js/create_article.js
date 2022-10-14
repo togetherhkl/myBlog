@@ -3,7 +3,6 @@ $(document).ready(function () {
     PublishArticle();
     VditorEdit();
     CoverImg();
-
 })
 
 //一些动画效果
@@ -82,8 +81,6 @@ function VditorEdit() {
                 } else {
                     alert(res.msg);
                 }
-
-
             }
             // format: function (files, res) {
             //     // 字符串转换为对象
@@ -118,10 +115,63 @@ function VditorEdit() {
             $('#id_article_digest').val(digest_text.substring(0, 400))
         }
     })
+    //发表确认确认按钮
+    $('#btnSure').click(() => {
+        let option = 2
+        SaveArticle(option)
+    })
+    //保存按钮
+    $('#btn-save').click(() => {
+        console.log('点击了保存')
+        $('#id_article_title').val($('#title').val())
+        $('#id_article_digest').val('none');
+        let option = 1
+        //模态框封面显示
+        if ($("#article-img").attr('"background-image"')) {
+            //获取背景图片的地址的css
+            let imgurl = $('#article-img').css("background-image");
+            //获取图片的url
+            let temp = imgurl.split('\"')[1];
+            //获取图片的名称
+            let url = temp.split('/');
+            let imgname = url[url.length - 1];
+            $('#id_article_img').val(imgname);
+        }
+        SaveArticle(option)
+    })
+
+    function SaveArticle(option) {
+        let csrfToken = $("[name='csrfmiddlewaretoken']").val();//获取前端的csrf的taken值
+        let content = $('#add-article-form').serialize();
+        content += '&article_data=' + vditor.getHTML();
+        content += '&article_status=' + option;
+        // console.log(content)
+        $.ajax({
+            url: '/create/article/',
+            type: 'post',
+            // data: $('#add-article-form').serialize(),
+            data: content,
+            dataType: 'JSON',
+            headers: {"X-CSRFToken": csrfToken,},//添加crsf验证
+            success: function (res) {
+                //添加错误消息
+                if (res.status === 400) {
+                    $('.error').empty();
+                    for (var error in res.msg) {
+                        $('#id_' + error).next().text(res.msg[error][0])
+                    }
+                }
+                if (res.status === 200) {
+                    alert(res.msg)
+                    $('#myModal').css('display', 'none');
+                }
+            }
+        })
+    }
 
     return vditor
-
 }
+
 
 //添加封面图片
 function CoverImg() {
@@ -309,18 +359,18 @@ function PublishArticle() {
     })
     //添加一键获取摘要
     html3 = "<button type=\"button\" class=\"btn-get-digest\" id=\"btn-get-digest\">一键获取</button>"
-    $('#id_article_digest').after(html3)
-
+    $('#id_article_digest').next().after(html3)
     //添加封面图片的显示
     html4 = "<img id=\"show-article-cover\" src=\"#\" alt=\"无封面图\">"
     $('#id_article_img').after(html4)
     //发表文章按钮
     $('.btn-publication').click(() => {
         $('#myModal').css('display', 'block');
+        $('#id_article_title').val($('#title').val())
         //先清空digest
         $('#id_article_digest').val('');
         //模态框封面显示
-        if ($("#article-img").length > 0) {
+        if ($("#article-img").attr('"background-image"')) {
             //获取背景图片的地址的css
             let imgurl = $('#article-img').css("background-image");
             //获取图片的url
@@ -331,7 +381,6 @@ function PublishArticle() {
             $('#show-article-cover').attr('src', temp)
             $('#id_article_img').val(imgname)
         }
-        $('#id_article_title').val($('.title').val())
     })
     //模态框的关闭
     $('.close').click(() => {
@@ -340,20 +389,5 @@ function PublishArticle() {
     //取消按钮
     $('#btnCansel').click(() => {
         $('#myModal').css('display', 'none');
-    })
-    //确认按钮
-    $('#btnSure').click(() => {
-        let csrfToken = $("[name='csrfmiddlewaretoken']").val();//获取前端的csrf的taken值
-        $.ajax({
-            url: '/create/article/',
-            type: 'post',
-            data:$('#add-article-form').serialize(),
-            dataType: 'JSON',
-            headers: {"X-CSRFToken": csrfToken,},//添加crsf验证
-            success:function (res){
-                console.log(res.msg)
-            }
-
-        })
     })
 }

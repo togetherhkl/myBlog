@@ -2,6 +2,7 @@
 
 from django.shortcuts import HttpResponse, redirect, render
 from django.http import JsonResponse
+from django.utils import timezone
 from django import forms
 from blog import models
 
@@ -21,7 +22,7 @@ class ArticlesModleForm(forms.ModelForm):
         }
 
 def create_article(request):
-    '''写文章'''
+    '''写文章与保存文章'''
     # return render(request,'create_article.html')
     if request.method=="GET":
         form = ArticlesModleForm()
@@ -30,20 +31,64 @@ def create_article(request):
         }
         return render(request, 'create_article.html', context)
     #POST提交博客文章数据
-    print(request.POST)
     form = ArticlesModleForm(data=request.POST)
-    context = {
-        'form': form,
-    }
+    data={}
     if form.is_valid():
-        print('数据有效')
-        data = {
-            'msg': '后台收到',
-        }
-        return JsonResponse(data)
+        # print(request.POST)
+        title=request.POST.get('article_title')
+        digest=request.POST.get('article_digest')
+        top=request.POST.get('article_top')
+        img=request.POST.get('article_img')
+        auth=request.POST.get('article_auth')
+        content=request.POST.get('article_data')
+        status=request.POST.get('article_status')
+        category=None
+        tag=None
+        if request.POST.get('category'):
+            category=request.POST.get('category')
+            category=int(category)
+        if request.POST.get('tag'):
+            tag=request.POST.get('tag')
+            tag=int(tag)
+        # print(request.session['info']['id'])
+        #前端选择保存
+        if status=='2':
+            models.Articles.objects.create(
+                user_id=request.session['info']['id'],
+                article_title=title,
+                article_digest=digest,
+                article_top=top,
+                article_img=img,
+                article_auth=0,
+                article_content=content,
+                category_id=category,
+                tag_id=tag,
+                article_updatedate=timezone.now()
+            )
+            data['msg']='发表成功，等待审核'
+            data['status']=200
+        elif status=='1':
+            models.Articles.objects.create(
+                user_id=request.session['info']['id'],
+                article_title=title,
+                article_digest=digest,
+                article_top=top,
+                article_img=img,
+                article_auth=auth,
+                article_content=content,
+                category_id=category,
+                tag_id=tag,
+                article_updatedate=timezone.now(),
+                article_status=1
+            )
+            data['msg'] = '保存成功'
+            data['status'] = 200
     else:
         print(form.errors)
-        return render(request, 'create_article.html', context)
+        data['msg']=form.errors
+        data['status']=400
+    return JsonResponse(data)
+
 
 
 def create_punlis(request):

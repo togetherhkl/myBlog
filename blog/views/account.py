@@ -141,5 +141,5 @@ def account_adduser(request):
     else:
         # print(form.errors)
         data['msg']=form.errors#收集错误消息
-        data['status']=404
+        data['status']=400
     return JsonResponse(data)

@@ -52,7 +52,4 @@ function Register() {
         //刷新验证码
         $('#img-verify').attr("src","/image/code/"+"?" + Math.random());
     })
-
-
-
 }

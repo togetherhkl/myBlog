@@ -394,6 +394,11 @@ header .header-right .avatar img {
     border: 2px solid #888888;
     border-radius: 10px;
 }
+.modal-body .error{
+    font-size: 12px;
+    font-family: Ubuntu,sans-serif;
+    font-weight: bold;
+}
 .modal-body label{
     font-weight: bold;
     font-family: Ubuntu,sans-serif;
@@ -459,6 +464,3 @@ header .header-right .avatar img {
 #btnSure:hover{
     opacity: 0.8;
 }
-
-
-
