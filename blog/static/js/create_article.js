@@ -127,7 +127,7 @@ function VditorEdit() {
         $('#id_article_digest').val('none');
         let option = 1
         //模态框封面显示
-        if ($("#article-img").attr('"background-image"')) {
+        if ($("#article-img").css('background-image') !== 'none') {
             //获取背景图片的地址的css
             let imgurl = $('#article-img').css("background-image");
             //获取图片的url
@@ -145,28 +145,35 @@ function VditorEdit() {
         let content = $('#add-article-form').serialize();
         content += '&article_data=' + vditor.getHTML();
         content += '&article_status=' + option;
-        // console.log(content)
-        $.ajax({
-            url: '/create/article/',
-            type: 'post',
-            // data: $('#add-article-form').serialize(),
-            data: content,
-            dataType: 'JSON',
-            headers: {"X-CSRFToken": csrfToken,},//添加crsf验证
-            success: function (res) {
-                //添加错误消息
-                if (res.status === 400) {
-                    $('.error').empty();
-                    for (var error in res.msg) {
-                        $('#id_' + error).next().text(res.msg[error][0])
-                    }
-                }
-                if (res.status === 200) {
-                    alert(res.msg)
-                    $('#myModal').css('display', 'none');
-                }
-            }
+        let tags=[]
+        //获取选取标签的value
+        $('#tagsel-ul li').each(function (){
+            // console.log($(this).attr('value'))
+            tags.push($(this).attr('value'))
         })
+        content+='&tags='+tags
+        // console.log(content)
+         $.ajax({
+             url: '/create/article/',
+             type: 'post',
+             // data: $('#add-article-form').serialize(),
+             data: content,
+             dataType: 'JSON',
+             headers: {"X-CSRFToken": csrfToken,},//添加crsf验证
+             success: function (res) {
+                 //添加错误消息
+                 if (res.status === 400) {
+                     $('.error').empty();
+                     for (var error in res.msg) {
+                         $('#id_' + error).next().text(res.msg[error][0])
+                     }
+                 }
+                 if (res.status === 200) {
+                     alert(res.msg)
+                     $('#myModal').css('display', 'none');
+                 }
+             }
+         })
     }
 
     return vditor
@@ -322,18 +329,55 @@ function PublishArticle() {
                     }
                 })
             })
-            //添加父标签
-            html1 = "<select class=\"ftag\" id=\"ftag\"><option value=\"\" selected=\"\">---------</option>"
-            $.each(res.ftag, (ind, item) => {
-                html1 += "<option class=\"opt-ftag\" value=" + item[0] + ">" + item[1] + "</option>";
+            //修改标签容器的属性
+            $('#id_tag').parent().css('display', 'flex')
+            $('#id_tag').parent().attr('id', 'tag-select')
+            //添加表标签模态框
+            html1 = '';
+            html1 = '<div id="tag-modal">\n' +
+                '    <div class="tag-modal-header">\n' +
+                '        <span id="tag-modal-title">添加标签</span>\n' +
+                '        <span class="tag-close">&times;</span>\n' +
+                '    </div>\n' +
+                '    <div id="tag-body">\n' +
+                '        <div id="ftags">\n' +
+                '            <div class="tag-name">父标签</div>\n' +
+                '            <ul id="ftags-ul"></ul>\n' +
+                '        </div>\n' +
+                '        <div id="tags-div">\n' +
+                '            <div class="tag-name">子标签</div></div>\n' +
+                '    </div>\n' +
+                '</div>'
+            $('#tag-select').append(html1)
+            //给tag模态框的关闭图标添加事件
+            $('.tag-close').click(() => {
+                $('#tag-modal').css('display', 'none')
             })
-            html1 += "</select>";
-            $('#id_tag').before(html1);
-            $('#id_tag').empty();
+            //添加标签显示和增加标签按钮
+            let html5 = '<div id="tagseleted-div"><ul id="tagsel-ul"></ul></div><button id="add-tag" type="button"><i class="gg-add"></i>添加文章标签</button>'
+            $('#id_tag').before(html5);
+            //文章标签点击，出现标签模态框
+            $('#add-tag').click(function () {
+                let temp = $('#tag-modal').css('display')
+                if (temp === 'none') {
+                    $('#tag-modal').css('display', 'flex')
+                } else {
+                    $('#tag-modal').css('display', 'none')
+                }
+
+            })
+            //添加父标签
+            html1 = '';
+            $.each(res.ftag, (ind, item) => {
+                html1 += "<li class='ftag-li' value=" + item[0] + ">" + item[1] + "</li>";
+            })
+            $('#ftags-ul').append(html1)
+            $('#tags').empty();
             //父标签改变子标签改变
-            $('#ftag').change(() => {
-                $('#id_tag').empty();
-                let ftag_id = $('#ftag').val()
+            var tagsel_flag = []
+            $('.ftag-li').click(function () {
+                let ftag_id = $(this).val()
+                // let ftag_id=$(this).attr('value')
                 $.ajax({
                     url: '/create/publish/',
                     type: 'post',
@@ -346,9 +390,40 @@ function PublishArticle() {
                         if (res.status2) {
                             let html2 = "";
                             $.each(res.tag, (ind, item) => {
-                                html2 += "<option class=\"opt-fcat\" value=" + item[0] + ">" + item[1] + "</option>";
+                                //判断标签是否被选中
+                                if ($.inArray(item[0], tagsel_flag) >= 0) {//已经选中
+                                    html2 += "<span class=\"tags-span tag-status\" value=" + item[0] + " >" + item[1] + "</span>"
+                                } else {//未选中
+                                    html2 += "<span class=\"tags-span tags-click\" value=" + item[0] + " >" + item[1] + "</span>"
+                                }
                             })
-                            $('#id_tag').append(html2)
+                            $('#tags-div').html(html2)
+                            //给子标签添加事件,显示选中的标签
+                            // $('.tags-span').click(function () {
+                            $('.tags-click').click(function () {
+                                let value = $(this).attr('value')
+                                // console.log(value)
+                                let text = $(this).text()
+                                // console.log(text)
+                                let htmltemp = '<li class="tag-li" value="' + value + '">' + text + '<i class="gg-close tag-del"></i></li>'
+                                $('#tagsel-ul').append(htmltemp)
+                                //只能点击一次
+                                tagsel_flag.push(parseInt(value))//转化成int存入数组表示已经被点击
+                                $(this).css('color', 'black')
+                                $(this).unbind('click')
+                                $(this).removeClass('tags-click')
+                                //给显示标签的删除图标添加删除事件
+                                $('.tag-del').click(function () {
+                                    let value = $(this).parent().val()
+                                    //释放标签
+                                    if ($.inArray(value, tagsel_flag) === -1) {
+                                        //$.inArray(元素, 数组) == -1 表示要删除的元素不在原数组中
+                                    } else {
+                                        tagsel_flag.splice($.inArray(value, tagsel_flag), 1);
+                                    }
+                                    $(this).parent().remove()
+                                })
+                            })
                         } else {
                             alert('该标签没有子标签')
                         }
@@ -370,9 +445,10 @@ function PublishArticle() {
         //先清空digest
         $('#id_article_digest').val('');
         //模态框封面显示
-        if ($("#article-img").attr('"background-image"')) {
+        if ($('#article-img').css('background-image') !== 'none') {
             //获取背景图片的地址的css
             let imgurl = $('#article-img').css("background-image");
+            console.log(imgurl)
             //获取图片的url
             let temp = imgurl.split('\"')[1];
             //获取图片的名称

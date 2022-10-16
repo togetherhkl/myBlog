@@ -9,9 +9,10 @@ from blog import models
 
 class ArticlesModleForm(forms.ModelForm):
     '''文章类的modelform'''
+    tag=forms.CharField(label='标签',max_length=32,required=False)
     class Meta:
         model = models.Articles
-        fields = ['article_title', 'article_digest', 'category', 'article_top', 'article_img', 'article_auth', 'tag']
+        fields = ['article_title', 'article_digest', 'category', 'article_top', 'article_img', 'article_auth','tag']
         # fields='__all__'
         widgets = {
             'article_digest': forms.Textarea(attrs={'placeholder':'输入四百字内的摘要'}),
@@ -34,7 +35,7 @@ def create_article(request):
     form = ArticlesModleForm(data=request.POST)
     data={}
     if form.is_valid():
-        # print(request.POST)
+        print(request.POST)
         title=request.POST.get('article_title')
         digest=request.POST.get('article_digest')
         top=request.POST.get('article_top')
@@ -43,17 +44,21 @@ def create_article(request):
         content=request.POST.get('article_data')
         status=request.POST.get('article_status')
         category=None
-        tag=None
+        tags=[]#储存选择的标签
+        flag=False#判度前端是否选择标签
+        #如果前端选择了分类
         if request.POST.get('category'):
             category=request.POST.get('category')
             category=int(category)
-        if request.POST.get('tag'):
-            tag=request.POST.get('tag')
-            tag=int(tag)
+        #如果前端选择了标签
+        if request.POST.get('tags'):
+            flag=True
+            temp=request.POST.get('tags')
+            tags=temp.split(',')
         # print(request.session['info']['id'])
-        #前端选择保存
+        #前端选择发表
         if status=='2':
-            models.Articles.objects.create(
+            temp=models.Articles.objects.create(
                 user_id=request.session['info']['id'],
                 article_title=title,
                 article_digest=digest,
@@ -62,13 +67,17 @@ def create_article(request):
                 article_auth=0,
                 article_content=content,
                 category_id=category,
-                tag_id=tag,
                 article_updatedate=timezone.now()
             )
+            #添加标签记录
+            if flag:
+                for i in tags:
+                    models.TagSetArticle.objects.create(article_id=temp.id,tag_id=int(i))
             data['msg']='发表成功，等待审核'
             data['status']=200
+        #前端选择保存
         elif status=='1':
-            models.Articles.objects.create(
+            temp=models.Articles.objects.create(
                 user_id=request.session['info']['id'],
                 article_title=title,
                 article_digest=digest,
@@ -77,10 +86,13 @@ def create_article(request):
                 article_auth=auth,
                 article_content=content,
                 category_id=category,
-                tag_id=tag,
                 article_updatedate=timezone.now(),
                 article_status=1
             )
+            #添加标签记录
+            if flag:
+                for i in tags:
+                    models.TagSetArticle.objects.create(article_id=temp.id,tag_id=int(i))
             data['msg'] = '保存成功'
             data['status'] = 200
     else:
@@ -88,9 +100,6 @@ def create_article(request):
         data['msg']=form.errors
         data['status']=400
     return JsonResponse(data)
-
-
-
 def create_punlis(request):
     '''发表文章模态框所需要的数据'''
     #获取父分类
@@ -113,7 +122,7 @@ def create_punlis(request):
                 tem2.append(item.id)
                 tem2.append(item.category_name)
                 catagory.append(tem2)
-            print(catagory)
+            # print(catagory)
         else:
             status=False
     #获取父标签
@@ -124,11 +133,13 @@ def create_punlis(request):
         tem3.append(obj.id)
         tem3.append(obj.ftag_name)
         ftag.append(tem3)
+    # print(ftag)
     #获取子标签
     status2=True
     tag=[]
     if request.POST.get('ftag_id'):
         id=request.POST.get('ftag_id')
+        id=int(id)
         tag_dict=models.Tag.objects.filter(ftag_id=id).all()
         if tag_dict:
             for obj in tag_dict:

@@ -1,0 +1,139 @@
+
+#article-container {
+    background-color: #888888;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+}
+
+/*左侧信息栏*/
+#left-area {
+    flex: 1;
+    /*background-color: dodgerblue;*/
+}
+
+/*中间显示文章*/
+#med-area {
+    flex: 3;
+    background-color: #eeeeee;
+    padding: 0 20px;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#med-area .article-info {
+    display: flex;
+    width: 100%;
+    height: 260px;
+    margin-top: 20px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.article-info .article-cover {
+    flex: 1;
+    /*background-color: #9B703F;*/
+    width: 100%;
+    height: 100%;
+}
+
+.article-info .article-cover img {
+    width: 100%;
+    height: 100%;
+}
+
+.article-info .article-detail {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    /*background-color: #a6e1ec;*/
+}
+
+.article-detail h2 {
+    margin: 0;
+    padding: 10px 0 10px 20px;
+    background-color: #515151;
+    color: #eeeeee;
+}
+
+.article-detail .entry-meta {
+    display: flex;
+    padding: 10px 0 10px 20px;
+    align-items: center;
+}
+
+.entry-meta a {
+    text-decoration: none;
+    color: #333333;
+}
+
+.entry-meta a:hover {
+    color: dodgerblue;
+}
+
+.entry-meta span {
+    display: flex;
+    align-items: center;
+}
+
+/*添加标签图与分割线*/
+.entry-meta span::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background-size: cover;
+    margin: 0 2px;
+}
+
+.entry-meta span::after {
+    content: '';
+    background-image: url('../img/seg.png');
+    height: 23px;
+    width: 20px;
+    display: inline-block;
+    background-size: cover;
+    margin: 0 4px;
+}
+
+/*date*/
+.entry-meta .date::before {
+    background-image: url('../img/date.png');
+}
+
+/*author*/
+.entry-meta .author::before {
+    background-image: url('../img/edit.png');
+}
+
+/*tag*/
+.entry-meta .tags::before {
+    background-image: url('../img/tag.png');
+}
+
+/*摘要*/
+.article-detail p {
+    padding-left: 30px;
+    height: 80px;
+}
+
+/*点击阅读*/
+.article-detail .more-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: lightskyblue;
+    margin-left: 20px;
+}
+
+/*右侧信息栏*/
+#right-area {
+    flex: 1;
+    /*background-color: #0b8235;*/
+}

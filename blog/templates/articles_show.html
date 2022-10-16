@@ -1,0 +1,35 @@
+{% extends 'header_nav.html' %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/articles_show.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="article-container">
+        <div id="left-area"></div>
+        <div id="med-area">
+            {% for obj in objs %}
+                <div class="article-info">
+                {% ifequal obj.article_img '' %}<div class="article-cover"><img src="/static/img/img.png" alt="封面图"></div>
+                {% else %}
+                    <div class="article-cover"><img src="/media/article-cover-img/{{ obj.article_img }}" alt="封面图"></div>
+                    {% endifequal %}
+                    <div class="article-detail">
+                        <h2 class="article-title">{{ obj.article_title }}</h2>
+                        <div class="entry-meta">
+                            <span class="date"><a href="#">{{ obj.article_createdate }}</a></span>
+                            <span class="author"><a href="#">{{ obj.user }}</a></span>
+                            <span class="tags">
+                            <a href="#">web安全</a>,
+                            <a href="#">云安全</a>
+                        </span>
+                        </div>
+                        <p class="article-digest">{{ obj.article_digest }}</p>
+                        <a class="more-link" href="#">点击阅读</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        <div id="right-area"></div>
+    </div>
+{% endblock %}

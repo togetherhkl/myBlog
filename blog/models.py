@@ -73,7 +73,7 @@ class Articles(models.Model):
     article_updatedate=models.DateTimeField(verbose_name='更新日期')
     #如果分类别删除，博文的分类置空
     category=models.ForeignKey(verbose_name='博文分类',to='Category',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)
-    tag=models.ForeignKey(verbose_name='标签',to='Tag',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)
+    # tag=models.ForeignKey(verbose_name='标签',to='Tag',to_field='id',null=True,blank=True,on_delete=models.SET_NULL)
     top_choices=(
         (0,'不置顶'),
         (1,'置顶')

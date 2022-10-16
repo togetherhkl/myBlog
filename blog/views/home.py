@@ -22,10 +22,11 @@ def home_nav(request):
         for obj2 in category:
             temp=[]
             temp.append(obj2.category_name)
-            temp.append(obj2.jumpaddress)
+            temp.append(obj2.id)
             # print(temp)
             categorie.append(temp)#把名字放入一个列表
         categories.append(categorie)#把父类的子类放入列表
+    # print(categories)
     content = {
         'menu': fcat,
         'category': categories

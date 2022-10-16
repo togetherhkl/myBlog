@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import path, re_path  # re_path为正则表达式
 from django.views.static import serve
 from django.conf import settings
-from blog.views import home, create,upload,account
+from blog.views import home, create,upload,account,article
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -43,5 +43,8 @@ urlpatterns = [
     path('login/adduser/',account.account_adduser),#注册用户
     path('logout/', account.account_logout),  # 注销
     path('image/code/', account.image_code),  # 获取验证码图片
+
+    #显示文章
+    path('article/show/',article.article_show),#显示文章
 
 ]
