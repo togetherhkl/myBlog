@@ -23,7 +23,10 @@ SECRET_KEY = 'django-insecure-fj@fr!u_v&3++#^)k22e6yyq)4y1(ngik!5_=-)gck!v&ulzu2
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -51,6 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'xhBlog.urls'
+X_FRAME_OPTIONS='SAMEORIGIN'
 
 TEMPLATES = [
     {
@@ -132,3 +136,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MoalForm上传文件到media目录，添加的配置,可以在浏览器上访问文件
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
+
+# SECURE_CONTENT_TYPE_NOSNIFF=False
+# import mimetypes
+# mimetypes.add_type('text/css','.less')
+# mimetypes.add_type('application/javascript”','.ts')
+# mimetypes.add_type('text/html','.html')
+# mimetypes.add_type('application/octet-stream”','.ts')
+# mimetypes.add_type('video/mp2t','.less')

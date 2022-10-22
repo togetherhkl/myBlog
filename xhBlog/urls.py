@@ -45,6 +45,13 @@ urlpatterns = [
     path('image/code/', account.image_code),  # 获取验证码图片
 
     #显示文章
-    path('article/show/',article.article_show),#显示文章
+    path('article/show/',article.article_show),#显示文章list
+    path('article/gettags/',article.article_gettags),#获取谋篇文章的标签
+    path('article/<int:nid>/show/page/',article.article_show_page),#展现某一篇具体的文章
+    path('article/get/content/',article.article_get_content),
+
+    #Vditor的文章测试
+    path('article/test/',article.article_test),
+    path('article/test/getpage/',article.article_test_getpage)
 
 ]

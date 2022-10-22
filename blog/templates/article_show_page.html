@@ -1,0 +1,36 @@
+{% extends 'header_nav.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/node_modules/vditor/dist/index.css' %}">
+    <script src="{% static 'plugins/node_modules/vditor/dist/index.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/article_show_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {% ifequal status 200 %}
+        <div class="page-container">
+            <div class="content-left">
+
+            </div>
+            <div class="content-mid">
+                <div class="page-detail"></div>
+                <div id="preview"></div>
+            </div>
+            <div class="content-right">
+                <div class="page-directory"><h3>目录</h3></div>
+                <div id="outline"></div>
+            </div>
+        </div>
+    {% else %}
+        <span style="color: red">{{ msg }}</span>
+    {% endifequal %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        let article_id =
+        {{ article_id }}
+    </script>
+    <script src="{% static 'js/article_show_page.js' %}"></script>
+{% endblock %}

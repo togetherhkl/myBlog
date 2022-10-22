@@ -1,0 +1,46 @@
+
+.page-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+/*左侧部分*/
+.content-left {
+    flex: 2;
+    height: 100%;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+/*中间部分*/
+.content-mid {
+    flex: 7;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+}
+/* scroll-view 不显示滚动条 */
+.content-mid::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0;
+    background-color: transparent;
+}
+
+.content-mid p img {
+    width: 70%;
+    height: 70%;
+    display: block;
+    margin: 0 auto;
+}
+/*右侧部分*/
+.content-right {
+    flex: 2;
+    height: 100%;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.content-right .page-directory{
+    height: 20px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}

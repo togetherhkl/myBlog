@@ -12,7 +12,7 @@ function NavLoad(){
                 html='<div class="subnav">' +
                     '<button class="subnavbtn">'+value+'</button><div class="subnav-content">'
                 $.each(res.category[index],(ind,item)=>{
-                    console.log(item[1])
+                    // console.log(item[1])
                     // html+='<a class="articles" href="'+item[1]+'">'+item[0]+'</a>'
                     html+='<a class="articles" href="/article/show/?category_id='+item[1]+'">'+item[0]+'</a>'
                 })

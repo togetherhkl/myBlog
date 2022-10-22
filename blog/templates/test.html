@@ -1,45 +1,203 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scal=1.0">
-    <title>Redamancy</title>
-    <link href='https://css.gg/css' rel='stylesheet'>
-    <!-- ⚠️生产环境请指定版本号，如 https://cdn.jsdelivr.net/npm/vditor@x.x.x/dist... -->
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css"/>
-     <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>-->
-   <!-- <link rel="stylesheet" href="../../node_modules/vditor/dist/index.css">
-    <script src="{% static 'plugins/node_modules/test.js' %}"></script>-->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'plugins/node_modules/vditor/dist/index.css' %}">
+    <script  src="{% static 'plugins/node_modules/vditor/dist/index.min.js' %}"></script>
     <style>
-        .edit[data-type="img"]{
-            width: 100px;
-            height: 100px;
-            background-color: #1b6d85;
+        body {
+            margin: 0;
+        }
+
+        .nav {
+            text-align: center;
+            margin: 20px 0
+        }
+
+
+        .link {
+            cursor: pointer;
+            color: #4285f4;
+        }
+
+        #previewWrap {
+            padding: 0 226px 20px 20px;
+        }
+
+        #preview {
+            margin: 0 auto;
+            max-width: 768px;
+        }
+
+        #outline {
+            display: none;
+            position: fixed;
+            width: 186px;
+            top: 64px;
+            right: 20px;
+            bottom: 20px;
+            overflow: auto;
+            font-size: 12px;
+            border-left: 1px solid var(--border-color);
+            border-right: 0;
+            --border-color: #eee;
+            --toolbar-icon-hover-color: #4285f4;
+            --textarea-text-color: #616161;
+            --hover-background-color: #f6f8fa;
+        }
+
+        #outline.dark {
+            --border-color: #d1d5da;
+            --toolbar-icon-hover-color: #fff;
+            --textarea-text-color: #a6aab0;
+            --hover-background-color: #444d56;
+        }
+
+        .vditor-reset ul[data-style="*"] {
+            list-style-type: disc
+        }
+
+        .vditor-reset ul[data-style="*"] ul {
+            list-style-type: circle
+        }
+
+        .vditor-reset ul[data-style="*"] ul ul {
+            list-style-type: square
+        }
+
+        .vditor-reset ul[data-style="+"] {
+            list-style-type: "\2764";
+        }
+
+        .vditor-reset ul[data-style="+"] ul {
+            list-style-type: "\1f49a"
+        }
+
+        .vditor-reset ul[data-style="+"] ul ul {
+            list-style-type: "\1f49b"
+        }
+
+        .vditor-reset ul[data-style="-"] {
+            list-style-type: korean-hangul-formal
+        }
+
+        .vditor-reset ul[data-style="-"] ul {
+            list-style-type: decimal-leading-zero
+        }
+
+        .vditor-reset ul[data-style="-"] ul ul {
+            list-style-type: lower-alpha
+        }
+
+        .vditor-reset ol[data-style="1)"] {
+            list-style-type: simp-chinese-formal
+        }
+
+        .vditor-reset ol[data-style="1)"] ol {
+            list-style-type: simp-chinese-informal
+        }
+
+        .vditor-reset ol[data-style="1)"] ol ol {
+            list-style-type: trad-chinese-formal
+        }
+
+        @media screen and (max-width: 768px) {
+            #previewWrap {
+                padding: 0 20px 20px 0;
+            }
+
+            #outline {
+                display: none !important;
+            }
         }
     </style>
-    {% block css %}{% endblock %}
 </head>
-
 <body>
-欢迎来到编辑区域
-<div class="edit" data-type="img"></div>
-<div class="edit" style="width: 100px;height: 100px;background-color: red"></div>
-<div id="vditor"></div>
-<script defer type="text/javascript">
-    window.onload = function () {
-        var vditor = new Vditor(document.getElementById('vditor'), {
-            cache: {
-                enable: false
-            },
-            height:400,
-            width:800,
-            "value":" ",
-            "mode": "ir",
 
-        });
-        document.getElementById('vditor').append(vditor)
-    }
+{% csrf_token %}
+<div id="previewWrap">
+    <div id="preview" class="preview"></div>
+</div>
+<div id="outline"></div>
+<script>
+
+</script>
+<script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+<script type="module">
+    import Vditor from '/static/plugins/node_modules/vditor/src/method.ts'
+    import '/static/plugins/node_modules/vditor/src/assets/less/index.less'
+    let csrfToken = $("[name='csrfmiddlewaretoken']").val();//获取前端的csrf的taken值
+    $.ajax({
+        url: '/article/test/getpage/',
+        type: 'post',
+        // data: $('#add-article-form').serialize(),
+        dataType: 'JSON',
+        headers: {"X-CSRFToken": csrfToken,},//添加crsf验证
+        success: function (res) {
+            const outlineElement = document.getElementById('outline')
+            const previewElement = document.getElementById('preview')
+            //{#let markdown='# 1.标题'#}
+            console.log(res.msg)
+            let markdown = Vditor.html2md(res.page)
+
+            console.log(markdown)
+
+            Vditor.preview(previewElement, markdown, {
+                markdown: {
+                    toc: true,
+                },
+                speech: {
+                    enable: true,
+                },
+                anchor: 1,
+                after() {
+                    if (window.innerWidth <= 768) {
+                        return
+                    }
+                    Vditor.outlineRender(previewElement, outlineElement)
+                    if (outlineElement.innerText.trim() !== '') {
+                        outlineElement.style.display = 'block'
+                    }
+                },
+
+                lazyLoadImage: '{% static 'plugins/node_modules/vditor/dist/images/img-loading.svg'%}',
+                renderers: {
+                    renderHeading: (node, entering) => {
+                        const id = Lute.GetHeadingID(node)
+                        if (entering) {
+                            return [
+                                `<h${node.__internal_object__.HeadingLevel} id="${id}" class="vditor__heading"><span class="prefix"></span><span>`,
+                                Lute.WalkContinue]
+                        } else {
+                            return [
+                                `</span><a id="vditorAnchor-${id}" class="vditor-anchor" href="#${id}"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h${node.__internal_object__.HeadingLevel}>`,
+                                Lute.WalkContinue]
+                        }
+                    },
+                },
+            })
+            window.setTheme = (theme) => {
+                if (theme === 'dark') {
+                    Vditor.setCodeTheme('native')
+                    Vditor.setContentTheme('dark',
+                        '{% static 'plugins/node_modules/vditor/dist/css/content-theme'%}')
+                    outlineElement.classList.add('dark')
+                    document.querySelector('html').style.backgroundColor = '#2f363d'
+                } else {
+                    Vditor.setCodeTheme('github')
+                    Vditor.setContentTheme('light',
+                        '{% static 'plugins/node_modules/vditor/dist/css/content-theme'%}')
+                    outlineElement.classList.remove('dark')
+                    document.querySelector('html').style.backgroundColor = '#fff'
+                }
+            }
+        }
+    })
+
+
 </script>
 </body>
 </html>

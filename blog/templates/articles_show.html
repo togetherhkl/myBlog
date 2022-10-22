@@ -4,32 +4,43 @@
     <link rel="stylesheet" href="{% static 'css/articles_show.css' %}">
 {% endblock %}
 {% block content %}
+    {% csrf_token %}
     <div id="article-container">
         <div id="left-area"></div>
         <div id="med-area">
             {% for obj in objs %}
                 <div class="article-info">
-                {% ifequal obj.article_img '' %}<div class="article-cover"><img src="/static/img/img.png" alt="封面图"></div>
-                {% else %}
-                    <div class="article-cover"><img src="/media/article-cover-img/{{ obj.article_img }}" alt="封面图"></div>
+                    {% ifequal obj.article_img '' %}
+                        <div class="article-cover"><img src="/static/img/img.png" alt="封面图"></div>
+                    {% else %}
+                        <div class="article-cover"><img src="/media/article-cover-img/{{ obj.article_img }}" alt="封面图">
+                        </div>
                     {% endifequal %}
                     <div class="article-detail">
-                        <h2 class="article-title">{{ obj.article_title }}</h2>
-                        <div class="entry-meta">
+                        <a class="article-title" href="/article/{{ obj.id }}/show/page/">{{ obj.article_title }}</a>
+                        <div class="entry-meta entry-meta-tags">
                             <span class="date"><a href="#">{{ obj.article_createdate }}</a></span>
-                            <span class="author"><a href="#">{{ obj.user }}</a></span>
-                            <span class="tags">
+                            <span class="author"><a href="#">{{ obj.user.user_name }}</a></span>
+                            <span class="tags" value="{{ obj.id }}">
                             <a href="#">web安全</a>,
                             <a href="#">云安全</a>
                         </span>
                         </div>
                         <p class="article-digest">{{ obj.article_digest }}</p>
-                        <a class="more-link" href="#">点击阅读</a>
+                        <div class="entry-meta">
+                            <a class="more-link" href="/article/{{ obj.id }}/show/page/">点击阅读</a>
+                            <span class="view">{{ obj.article_view }}</span>
+                            <span class="like">{{ obj.article_like }}</span>
+                            <span class="comment">{{ obj.article_comment }}</span>
+                            <span class="collect">{{ obj.article_collect }}</span>
+                        </div>
                     </div>
-
                 </div>
             {% endfor %}
         </div>
         <div id="right-area"></div>
     </div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/article_show.js' %}"></script>
 {% endblock %}

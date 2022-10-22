@@ -61,6 +61,8 @@ class Users(models.Model):
         (3,'超级VIP'),
     )
     user_level=models.SmallIntegerField(verbose_name='用户等级',choices=level_choices,default=1)
+    def __str__(self):
+        return self.user_name
 
 class Articles(models.Model):
     '''博文类'''

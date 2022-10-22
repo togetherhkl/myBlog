@@ -143,7 +143,8 @@ function VditorEdit() {
     function SaveArticle(option) {
         let csrfToken = $("[name='csrfmiddlewaretoken']").val();//获取前端的csrf的taken值
         let content = $('#add-article-form').serialize();
-        content += '&article_data=' + vditor.getHTML();
+        // content += '&article_data=' + vditor.getHTML();
+        content += '&article_data=' + vditor.getValue();
         content += '&article_status=' + option;
         let tags=[]
         //获取选取标签的value
