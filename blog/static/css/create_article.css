@@ -305,7 +305,6 @@ header .header-right .avatar img {
     animation-name: animatetop;
     animation-duration: 0.4s;
     scrollbar-width: none; /*火狐隐藏滚动条*/
-
 }
 
 /* scroll-view 不显示滚动条 */

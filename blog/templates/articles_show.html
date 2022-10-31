@@ -2,6 +2,7 @@
 {% block css %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/articles_show.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 {% block content %}
     {% csrf_token %}
@@ -37,10 +38,24 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="pagination-div">
+                <ul class="pagination"></ul>
+                <div class="form-jump">
+                    <input type="text" name="page" id="page-input">
+                    <button id="skip-page">跳转</button>
+                </div>
+            </div>
         </div>
         <div id="right-area"></div>
     </div>
 {% endblock %}
 {% block js %}
-<script src="{% static 'js/article_show.js' %}"></script>
+    <script src="{% static 'js/article_show.js' %}"></script>
+    <script>
+        let page_count ={{ page_count }};
+        let page ={{ page }};
+        let show_start_page ={{show_start_page  }};
+        let show_end_page ={{ show_end_page }};
+    </script>
+    <script src="{% static 'js/pagination.js' %}"></script>
 {% endblock %}

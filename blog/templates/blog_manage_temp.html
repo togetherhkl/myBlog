@@ -1,0 +1,42 @@
+{% extends 'header_nav.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/blog_manage_temp.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="page-container">
+        <div class="content-left">
+            <!-- 导航菜单 -->
+            <div class="manage-navbar">
+                <a href="/blog/manage/home/" class="manage-home"><i class="gg-home-alt"></i>首页</a>
+                <div class="manage-subnav">
+                    <button class="manage-subnavbtn" ><i class="gg-template"></i>管理<i class="gg-chevron-up icon" style="margin-left: auto"></i></button>
+                    <div class="manage-subnav-content">
+                        <a href="/blog/manage/article/">内容管理</a>
+                        <a href="#">分类管理</a>
+                        <a href="#">标签管理</a>
+                        <a href="#">评论管理</a>
+                    </div>
+                </div>
+                <div class="manage-subnav">
+                    <button class="manage-subnavbtn"><i class="gg-trending" ></i>数据统计<i class="gg-chevron-up icon" style="margin-left: auto"></i></button>
+                    <div class="manage-subnav-content">
+                        <a href="#">文章数据</a>
+                        <a href="#">作品数据</a>
+                    </div>
+                </div>
+            </div>
+            {% block left %}{% endblock %}
+        </div>
+        <div class="content-mid">
+            {% block mid %}{% endblock %}
+        </div>
+        <div class="content-right">
+            {% block right %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/blog_manage_temp.js' %}"></script>
+{% endblock %}

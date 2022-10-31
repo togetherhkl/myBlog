@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import path, re_path  # re_path为正则表达式
 from django.views.static import serve
 from django.conf import settings
-from blog.views import home, create,upload,account,article
+from blog.views import home, create,upload,account,article,blogmanage
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -33,6 +33,7 @@ urlpatterns = [
     # 创作
     path('create/article/', create.create_article),  # 创作文章
     path('create/publish/',create.create_punlis),#获取发表模态框所需要的数据
+    path('create/article/<int:nid>/mod/',create.create_article_mod),#修改文章内容
 
     #文件上传
     path('upload/inarticle/img/',upload.upload_inatricle_img),#上传文章内容的图片
@@ -48,7 +49,13 @@ urlpatterns = [
     path('article/show/',article.article_show),#显示文章list
     path('article/gettags/',article.article_gettags),#获取谋篇文章的标签
     path('article/<int:nid>/show/page/',article.article_show_page),#展现某一篇具体的文章
-    path('article/get/content/',article.article_get_content),
+    path('article/get/content/',article.article_get_content),#获取文章的内容
+    path('article/delete/',article.article_delete),#删除文章
+
+    #博客管理
+    path('blog/manage/home/',blogmanage.blogmange_home),#博客管理首页
+    path('blog/manage/article/',blogmanage.blomanage_article),#博客内容管理
+
 
     #Vditor的文章测试
     path('article/test/',article.article_test),

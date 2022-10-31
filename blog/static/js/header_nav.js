@@ -1,5 +1,6 @@
 $(document).ready(function (){
     NavLoad();//加载头部信息
+    ArticleSearch()
 })
 function NavLoad(){
     $.ajax({
@@ -23,3 +24,14 @@ function NavLoad(){
     })
 }
 
+function ArticleSearch(){
+    /*
+    * 头部的模糊搜索
+    * */
+    $('#home-search-input').bind('keypress',function(event){
+        if (event.keyCode === 13) {
+            search_text=$('#home-search-input').val()
+            window.location.href='/article/show/?search_text='+search_text
+        }
+    })
+}

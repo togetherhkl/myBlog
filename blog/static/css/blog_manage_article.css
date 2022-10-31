@@ -1,0 +1,361 @@
+/*文章内容修改区域*/
+.content-op-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/*文章状态查看*/
+.status-look {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.status-look span {
+    margin: 0 8px;
+    padding: 6px;
+    color: #888888;
+}
+
+.status-look span.status:hover {
+    cursor: pointer;
+    color: dodgerblue;
+}
+
+.status-active {
+    color: dodgerblue !important;
+}
+
+/*搜索查看*/
+.search-look {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    color: #888888;
+    padding: 8px 12px;
+
+}
+
+.select {
+    /*//用div的样式代替select的样式*/
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+
+}
+
+.select select {
+    /*//清除select的边框样式*/
+    border: none;
+    /*//清除select聚焦时候的边框颜色*/
+    outline: none;
+    /*//将select的宽高等于div的宽高*/
+    width: 100%;
+    height: 100%;
+    /*//通过padding-left的值让文字居中*/
+    padding-left: 60px;
+    font-family: Ubuntu, sans-serif;
+    font-size: 15px;
+}
+
+#search-text {
+    margin-left: 40px;
+    border: 1px solid black;
+    border-right: none;
+    width: 200px;
+    height: 35px;
+    border-radius: 5px 0 0 5px;
+    padding-left: 6px;
+}
+
+#search-text:focus {
+    outline: none;
+}
+
+#search-btn {
+    width: 50px;
+    height: 35px;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid black;
+}
+
+/*
+*文章数据展示
+*/
+.article-option {
+    margin-top: 30px;
+}
+
+.one-article-op {
+    margin-bottom: 15px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 8px 12px;
+}
+
+/*标题与时间*/
+.one-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+/*摘要*/
+.article-option p {
+    color: #898a8b;
+    font-size: 15px;
+    line-height: 30px;
+    height: 30px;
+    max-height: 30px;
+    text-overflow: ellipsis; /* 溢出用省略*/
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+/*阅读细节展示*/
+.entry-meta {
+    display: flex;
+    align-items: center;
+}
+
+.entry-meta span {
+    display: flex;
+    align-items: center;
+}
+
+/*添加标签图与分割线*/
+.entry-meta span::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background-size: cover;
+    margin: 0 2px;
+}
+
+.entry-meta span::after {
+    content: '';
+    background-image: url('../img/seg.png');
+    height: 23px;
+    width: 20px;
+    display: inline-block;
+    background-size: cover;
+    margin: 0 4px;
+}
+
+/*date*/
+.entry-meta .date::before {
+    background-image: url('../img/date.png');
+}
+
+/*author*/
+.entry-meta .author::before {
+    background-image: url('../img/edit.png');
+}
+
+/*tag*/
+.entry-meta .tags::before {
+    background-image: url('../img/tag.png');
+}
+
+/*view*/
+.entry-meta .view::before {
+    background-image: url('../img/view.png');
+}
+
+/*like*/
+.entry-meta .like::before {
+    background-image: url('../img/like.png');
+}
+
+/*comment*/
+.entry-meta .comment::before {
+    background-image: url('../img/comment.png');
+}
+
+/*collect*/
+.entry-meta .collect::before {
+    background-image: url('../img/collect.png');
+}
+
+/*文章操作展示*/
+.one-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ont-op {
+    display: flex;
+}
+
+.one-footer a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#op-edit {
+    background-color: lightskyblue;
+}
+
+#op-delete {
+    background-color: rgba(235, 76, 76, 0.85);
+}
+
+#op-view {
+    background-color: #9B703F;
+}
+
+#op-more {
+    background-color: #00aa00;
+}
+
+/**
+*删除的提示模态框
+ */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: scroll; /* Enable scroll if needed */
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+}
+
+/* scroll-view 不显示滚动条 */
+.modal::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0;
+    background-color: transparent;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 400px;
+    height: auto;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.modal-content .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    background-color: #9B703F;
+    border-radius: 10px 10px 0 0;
+    padding: 0 10px;
+    border-bottom: 1px solid black;
+    color: white;
+}
+
+.modal-header span {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.modal-header span i {
+    margin-right: 8px;
+}
+
+.close {
+    color: white;
+    font-size: 30px !important;
+    margin-left: auto; /*放到最右边*/
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content .modal-body {
+    padding: 10px;
+}
+/*模态框底部*/
+.modal-content .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 0 0 10px 10px;
+    padding: 0 10px;
+    border-top: 1px solid black;
+}
+.modal-footer .btns button {
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Ubuntu, sans-serif;
+    border-radius: 20px;
+    border: none;
+}
+#btnSure {
+    background-color: #db6c6c;
+    color: #eeeeee;
+}
+.modal-footer .btns button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

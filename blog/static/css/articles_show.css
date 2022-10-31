@@ -135,11 +135,14 @@
 .entry-meta .collect::before{
     background-image: url('../img/collect.png');
 }
-
 /*摘要*/
 .article-detail p {
     padding-left: 30px;
     height: 80px;
+    display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
 }
 
 /*点击阅读*/

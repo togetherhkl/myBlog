@@ -1,0 +1,89 @@
+
+.page-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+/*左侧部分*/
+.content-left {
+    flex: 2;
+    height: 100%;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+/*左侧菜单栏*/
+.content-left .manage-navbar{
+    width: 250px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.manage-subnav-content{
+    display: none;
+    flex-direction: column;
+}
+/*侧边栏导航的内容*/
+.content-left .manage-navbar a{
+    font-size: 16px;
+    padding: 8px 40px;
+    color: #888888;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    /*line-height: 70px;!*想使a标签垂直居中，该参数必须与父及同高，并且只能是px*!*/
+    /*text-align: center;*/
+    margin: 5px 0;
+}
+.content-left .manage-navbar a:hover{
+    background-color: rgba(155, 155, 155, 0.27);
+}
+.content-left .manage-navbar i{
+    margin-right: 15px;
+
+}
+.manage-navbar .manage-home{
+    display: flex!important;
+    align-items: center;
+    padding-left: 6px!important;
+    text-align: left!important;
+}
+
+/*侧边栏导航按钮*/
+.manage-subnav .manage-subnavbtn{
+    display: flex;
+    align-items: center;
+    border: none;
+    width: 100%;
+    padding: 8px 6px;
+    text-align: left;
+    background-color: white;
+    font-size: 16px;
+    color: #888888;
+}
+.manage-subnav .manage-subnavbtn:hover{
+    background-color: rgba(155, 155, 155, 0.27);
+    cursor: pointer;
+}
+/*中间部分*/
+.content-mid {
+    flex: 7;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+}
+/* scroll-view 不显示滚动条 */
+.content-mid::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0;
+    background-color: transparent;
+}
+
+/*右侧部分*/
+.content-right {
+    flex: 2;
+    height: 100%;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}

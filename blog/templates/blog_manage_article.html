@@ -1,0 +1,96 @@
+{% extends 'blog_manage_temp.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/blog_manage_temp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blog_manage_article.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
+{% block mid %}
+    {% csrf_token %}
+    <div class="content-op-container">
+        <div class="status-look">
+            <span>文章状态查看：</span>
+            <span class="status status-active" id="all-pages">全部({{ article_all }})</span>
+            <span value="2" class="status" id="pub-pages">已发表({{ article_pub }})</span>
+            <span value="3" class="status" id="audit-pages">审核中({{ article_audit }})</span>
+            <span value="1" class="status" id="draft-pages">草稿({{ article_draft }})</span>
+            <span value="4" class="status" id="reclaim-pages">回收站({{ article_delete }})</span>
+        </div>
+        <div class="search-look">
+            <span>文章分类：</span>
+            <div class="select">
+                <select name="select-list" id="select-list">
+                    <option selected value="0">--全部--</option>
+                    {% for item in category_set %}
+                        <option value={{ item.id }}>{{ item.category_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="text" id="search-text" placeholder="请输入关键字">
+            <button id="search-btn">搜索</button>
+        </div>
+        <div class="article-option" id="article-option">
+            {% for item in article_set %}
+                <div class="one-article-op">
+                    <div class="one-header">
+                        <h2>{{ item.article_title }}</h2>
+                        <span>{{ item.article_createdate }}</span>
+                    </div>
+                    <p>{{ item.article_digest }}</p>
+                    <div class="one-footer">
+                        <div class="entry-meta">
+                            <span class="view">阅读量：{{ item.article_view }} </span>
+                            <span class="like">点赞量：{{ item.article_like }} </span>
+                            <span class="comment">评论数：{{ item.article_comment }} </span>
+                            <span class="collect">收藏数：{{ item.article_collect }} </span>
+                        </div>
+                        <div class="ont-op">
+                            <a href="/create/article/{{ item.id }}/mod/" id="op-edit">编辑</a>
+                            <a href="/article/{{ item.id }}/show/page/" id="op-view">浏览</a>
+                            <a href="#" id="op-delete" value="{{ item.id }}" class="op-delete">删除</a>
+                            <a href="#" id="op-more">更多</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="pagination-div">
+                <ul class="pagination"></ul>
+                <div class="form-jump">
+                    <input type="text" name="page" id="page-input">
+                    <button id="skip-page">跳转</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modal-title"><i class="gg-format-justify"></i><span class="prompt">删除提示</span></span>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="body-text"><p>删除的文章不会被彻底删除，会放入到回收站，如果想彻底删除，请进入回收站点击删除</p></div>
+            </div>
+            <div class="modal-footer">
+                <div class="btns">
+                    <button type="button" class="btn-cansel" id="btnCansel">取 消</button>
+                    <button type="button" class="btn-sure" id="btnSure">确 定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/blog_manage_temp.js' %}"></script>
+
+    <script>
+        let page_count ={{ page_count }};
+        let page ={{ page }};
+        let show_start_page ={{show_start_page  }};
+        let show_end_page ={{ show_end_page }};
+    </script>
+    <script src="{% static 'js/pagination.js' %}"></script>
+    <script src="{% static 'js/blog_manage_article.js' %}"></script>
+{% endblock %}

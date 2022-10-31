@@ -84,7 +84,8 @@ class Articles(models.Model):
     status_choices=(
         (1,'草稿'),
         (2,'已发表'),
-        (3,'审核中')
+        (3,'审核中'),
+        (4,'回收站')
     )
     article_status=models.SmallIntegerField(verbose_name='发表状态',choices=status_choices,default=3)
     article_img=models.CharField(verbose_name='文章贴图',null=True,blank=True,max_length=100)
