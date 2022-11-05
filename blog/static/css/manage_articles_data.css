@@ -1,0 +1,50 @@
+
+.mid-container{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-top: 8px;
+}
+/* scroll-view 不显示滚动条 */
+.mid-container::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0;
+    background-color: transparent;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+}
+.chart-container{
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+    margin-bottom: 15px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.chart-container .title{
+    width: 100%;
+    height: 40px;
+    border-radius: 8px 8px 0 0;
+    background-color: skyblue;
+    display: flex;
+    align-items: center;
+}
+.chart-container i{
+    margin: 0 8px;
+}
+.chart-container  span{
+    font-weight: bold;
+}
+#bar-chart{
+    height: 400px;
+    width: 100%;
+    display: block;
+}
+#hand-chart{
+    height: 400px;
+    width: 100%;
+    display: block;
+}
+.eye:hover{
+    cursor: pointer;
+}
+

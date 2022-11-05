@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{% static 'plugins/node_modules/vditor/dist/index.css' %}">
     <script src="{% static 'plugins/node_modules/vditor/dist/index.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/article_show_page.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/isModal/css/iziModal.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -11,20 +12,35 @@
     {% ifequal status 200 %}
         <div class="page-container">
             <div class="content-left">
-
+                <div class="article-comment">
+                    <div class="article-comment-title">相关评论</div>
+                    <div class="comment" id="comment"></div>
+                </div>
+                <div class="add-comment" id="vditor"></div>
+                <button id="publish-comment">发表评论</button>
             </div>
             <div class="content-mid">
                 <div class="page-detail"></div>
                 <div id="preview"></div>
             </div>
             <div class="content-right">
-                <div class="page-directory"><h3>目录</h3></div>
-                <div id="outline"></div>
+                <div class="directory">
+                    <div class="page-directory"><h3>目录</h3></div>
+                    <div id="outline"></div>
+                </div>
+                <div class="article-info">
+                    <div class="page-directory">文章相关信息</div>
+                    <div class="article-info-detail scroll-none"></div>
+                </div>
             </div>
+        </div>
         </div>
     {% else %}
         <span style="color: red">{{ msg }}</span>
     {% endifequal %}
+    <div id="success-comment-modal">
+        <span>评论发成功</span>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -32,5 +48,6 @@
         let article_id =
         {{ article_id }}
     </script>
+    <script src="{% static 'plugins/isModal/js/iziModal.min.js' %}"></script>
     <script src="{% static 'js/article_show_page.js' %}"></script>
 {% endblock %}

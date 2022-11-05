@@ -1,11 +1,193 @@
 
 .container-body {
-    /*flex: 1;*/
-    padding: 30px 300px;
-    /*background-color: #1b6d85;*/
     height: 810px;/*该数字恰好使得footer消失*/
     margin-top: 5px;
+    display: flex;
 }
+.swiper{
+    z-index: 1 !important;
+}
+.left{
+    flex: 2;
+    height: 100%;
+    /*border-right: 1px solid black;*/
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.left-title,.mid-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 600px;
+    margin: 0 auto;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    background-color:#DCDCDC ;
+}
+.info-swiper,.article-swiper{
+    margin: 8px auto;
+    height: 300px;
+    width: 500px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.left .info-swiper .swiper{
+    width: 100%;
+    height: 100%;
+}
+.left .info-swiper .swiper .swiper-slide img{
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin: 0 auto;
+}
+.left .person-info{
+    width: 500px;
+    height: auto;
+    padding: 10px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.left .person-info .info-btn{
+    width: 200px;
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    background-color: #DCDCDC;
+    border: none;
+    margin: 15px 0;
+    font-family: Ubuntu,sans-serif;
+    font-size: 18px;
+}
+
+.mid{
+    flex: 2;
+    height: 100%;
+    /*box-shadow: 2px 0 20px 10px rgba(112, 110, 110, 0.3);*/
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.mid .article-swiper .swiper{
+    width: 100%;
+    height: 100%;
+}
+.mid .article-swiper .swiper .swiper-slide{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.mid .article-swiper .swiper .swiper-slide img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    z-index: -1;
+    position: absolute;
+}
+.article-swiper .swiper .swiper-slide  .article-title {
+    margin-bottom: 10px;
+    padding: 10px 0 10px 20px;
+    text-decoration: none;
+    color: #eeeeee;
+    font-family: Ubuntu,sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    align-self: flex-end;/*至于底部*/
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+}
+.article-swiper .swiper .swiper-slide .article-title:hover{
+    color: dodgerblue;
+    cursor: pointer;
+}
+/*数据分析*/
+.mid .article-data{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mid .article-data .bar-chart{
+    width: 600px;
+    height: 400px;
+    margin-top: 10px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.right{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+    justify-content: center;
+    align-items: center;
+}
+.right .title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width:200px;
+    margin: 10px auto;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    background-color:#DCDCDC ;
+}
+.right .list{
+    margin-bottom: 15px;
+    height: 100%;
+    width:300px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+}
+/* scroll-view 不显示滚动条 */
+.right .list::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0;
+    background-color: transparent;
+}
+.right .list a{
+    text-decoration: none;
+    color: black;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    margin: 3px;
+}
+
+.right .list a:hover{
+    color: dodgerblue;
+}
+.right .latest-article{
+    width: 320px;
+    height: 380px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    scrollbar-width: none; /*火狐隐藏滚动条*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.right .popular-article{
+    margin-top: 20px;
+    width: 320px;
+    height: 380px;
+    box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 footer {
     height: 45px;
     background-color: #333;

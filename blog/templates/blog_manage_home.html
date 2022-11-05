@@ -1,1 +1,45 @@
 {% extends 'blog_manage_temp.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/blog_manage_temp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blog_manage_home.css' %}">
+{% endblock %}
+{% block mid %}
+    <div class="info-container">
+        <form method="post" novalidate class="info-form">
+            {% csrf_token %}
+            <div class="item-title">
+                <span>完善/修改个人信息</span>
+            </div>
+            {% for fiel in form %}
+                <div class="item">
+                    <span>{{ fiel.label }}:</span>{{ fiel }}<span style="color: red">{{ fiel.errors.0 }}</span>
+                </div>
+            {% endfor %}
+            <button type="submit" value="修改">保存个人信息</button>
+        </form>
+        <div class="change-pwd">
+            <div class="item-title">
+                <span>修改密码</span>
+            </div>
+            <div class="item">
+                <span>请输入旧密码：</span><input type="password" id="old_pwd">
+                <span class="change-error"></span>
+            </div>
+            <div class="item">
+                <span>请输入新密码：</span><input type="password" id="new_pwd">
+                <span class="change-error"></span>
+            </div>
+            <div class="item">
+                <span>确认新密码：</span><input type="password" id="confirm_pwd">
+                <span class="change-error"></span>
+            </div>
+            <button type="submit" value="修改" id="change-pwd-btn">修改密码</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/blog_manage_temp.js' %}"></script>
+    <script src="{% static 'js/blog_manage_home.js' %}"></script>
+{% endblock %}

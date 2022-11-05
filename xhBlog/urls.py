@@ -55,6 +55,7 @@ urlpatterns = [
     #博客管理
     path('blog/manage/home/',blogmanage.blogmange_home),#博客管理首页
     path('blog/manage/article/',blogmanage.blomanage_article),#博客内容管理
+    path('blog/manage/article/data/',blogmanage.blomanage_article_data),#文章数据管理
 
 
     #Vditor的文章测试

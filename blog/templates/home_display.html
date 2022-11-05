@@ -1,14 +1,91 @@
-
 {% extends 'header_nav.html' %}
 
 {% block css %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/home_display.css'%}">
+    <link rel="stylesheet" href="{% static 'css/home_display.css' %}">
+    <!--<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">-->
+    <link rel="stylesheet" href="{% static 'plugins/swiper/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/isModal/css/iziModal.min.css' %}">
 {% endblock %}
 {% block content %}
+    {% csrf_token %}
     <div class="container-body">
-
+        <div class="left">
+            <div class="left-title">个人信息介绍</div>
+            <div class="info-swiper">
+                <div class="swiper" id="info-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="{% static 'img/swiper/mine01.png' %}" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'img/swiper/mine02.png' %}" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'img/swiper/mine03.png' %}" alt=""></div>
+                    </div>
+                </div>
+            </div>
+            <div class="person-info">
+                <button class="info-btn" id="base-info-btn">基础信息</button>
+                <button class="info-btn" id="educate-info-btn">教育背景</button>
+                <button class="info-btn" id="society-info-btn">社会实践</button>
+                <button class="info-btn" id="project-info-btn">项目经历</button>
+            </div>
+        </div>
+        <div class="mid">
+            <div class="mid-title">博主推荐</div>
+            <div class="article-swiper">
+                <div class="swiper" id="article-swiper">
+                    <div class="swiper-wrapper" id="article-swiper-wrapper"></div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+                    <!-- 如果需要导航按钮 -->
+                    <div class="swiper-button-prev"></div><!--左箭头。如果放置在swiper外面，需要自定义样式。-->
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="article-data">
+                    <div class="mid-title">文章数据</div>
+                    <div class="bar-chart" id="bar-chart"></div>
+                </div>
+        </div>
+        <div class="right">
+            <div class="latest-article">
+                <div class="title">最近文章</div>
+                <div class="latest-list list"></div>
+            </div>
+            <div class="popular-article">
+                <div class="title">热门文章</div>
+                <div class="popular-list list"></div>
+            </div>
+        </div>
     </div>
     <footer><span>Powered by Redamancy | Copyright © 2022 Redamancy</span></footer>
-
+    <div id="base-info-modal">
+        <!-- 模态窗口的内容 -->
+        <div>住址：xxxxx</div>
+        <div>电话：13674859658</div>
+        <div>邮箱：1778267485@qq.com</div>
+    </div>
+    <div id="educate-info-modal">
+        <!-- 模态窗口的内容 -->
+        <div>学校：西华大学</div>
+        <div>专业：信息安全</div>
+        <div>主修课程：xxx，xxx，xxx</div>
+        <div>学习情况：绩点：</div>
+    </div>
+    <div id="society-info-modal">
+        <!-- 模态窗口的内容 -->
+        <div>社会实践1：参与xxxxx</div>
+        <div>社会实践2：实习xxxxx</div>
+        <div>社会实践3：参与竞赛xxxxx</div>
+    </div>
+    <div id="project-info-modal">
+        <!-- 模态窗口的内容 -->
+        <div>项目1：C#同学录 github地址：xxxxx</div>
+        <div>项目2：QT：算法可视化 github地址：xxxxx</div>
+        <div>项目3：python：个人博客系统 github地址：xxxxx</div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'plugins/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/isModal/js/iziModal.min.js' %}"></script>
+    <script src="{% static 'js/echarts.js' %}"></script>
+    <script src="{% static 'js/home_display.js' %}"></script>
 {% endblock %}

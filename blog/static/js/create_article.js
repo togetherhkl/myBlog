@@ -239,7 +239,6 @@ function VditorEdit() {
             }
         })
     }
-
     return vditor
 }
 

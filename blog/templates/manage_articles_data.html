@@ -1,0 +1,29 @@
+{% extends 'blog_manage_temp.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/blog_manage_temp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/manage_articles_data.css' %}">
+{% endblock %}
+{% block mid %}
+    {% csrf_token %}
+    <div class="mid-container">
+        <div class="chart-container">
+            <div class="bar-chart-container">
+                <div class="title"><i class="gg-eye eye"></i><span>柱状图分析</span></div>
+                <div class="bar-chart chart" id="bar-chart"></div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <div class="hand-chart-container">
+                <div class="title"><i class="gg-eye-alt eye"></i><span>饼图分析</span></div>
+                <div class="hand-chart chart" id="hand-chart"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/blog_manage_temp.js' %}"></script>
+    <script src="{% static 'js/manage_article_data.js' %}"></script>
+    <script src="{% static 'js/echarts.js' %}"></script>
+{% endblock %}

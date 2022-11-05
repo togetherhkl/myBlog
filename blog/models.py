@@ -7,12 +7,14 @@ class FTag(models.Model):
     ftag_name=models.CharField(verbose_name='父标签名称',max_length=50)
     ftag_description=models.TextField(verbose_name='父标签描述')
     ftag_createdate=models.DateTimeField(verbose_name='创建时间')
+    user = models.ForeignKey(verbose_name='所属用户', to='Users', to_field='id', on_delete=models.CASCADE, default=1)
 
 class Tag(models.Model):
     '''标签类'''
     tag_name=models.CharField(verbose_name='标签名称',max_length=50)
     tag_description=models.TextField(verbose_name='标签描述')
     tag_createdate=models.DateTimeField(verbose_name='创建时间')
+    user = models.ForeignKey(verbose_name='所属用户', to='Users', to_field='id', on_delete=models.CASCADE, default=1)
     #级联删除
     ftag=models.ForeignKey(verbose_name='父标签',to='FTag',to_field='id',on_delete=models.CASCADE)
     def __str__(self):
@@ -23,6 +25,7 @@ class FCategory(models.Model):
     fcategory_name=models.CharField(verbose_name='父分类名称',max_length=50)
     fcategory_description=models.TextField(verbose_name='父标签描述')
     fcategory_createdate=models.DateTimeField(verbose_name='创建时间')
+    user=models.ForeignKey(verbose_name='所属用户',to='Users',to_field='id',on_delete=models.CASCADE,default=1)
 
 class Category(models.Model):
     '''分类类'''
@@ -31,6 +34,7 @@ class Category(models.Model):
     category_createdate=models.DateTimeField(verbose_name='创建时间')
     fcategory=models.ForeignKey(verbose_name='父分类',to='FCategory',to_field='id',on_delete=models.CASCADE)
     jumpaddress=models.CharField(verbose_name='跳转地址',max_length=128,default="#")
+    user = models.ForeignKey(verbose_name='所属用户', to='Users', to_field='id', on_delete=models.CASCADE, default=1)
     def __str__(self):
         return self.category_name
 
@@ -46,7 +50,7 @@ class Users(models.Model):
     user_email=models.CharField(verbose_name='用户邮箱',max_length=32,null=True,blank=True)
     user_phone=models.CharField(verbose_name='用户手机',max_length=11,null=True,blank=True,unique=True)
     user_pwd=models.CharField(verbose_name='用户密码',max_length=128)
-    user_img=models.FileField(verbose_name='用户头像',upload_to='usersimg/',max_length=128,default='media/user_avatar/default_avatar.png')
+    user_img=models.FileField(verbose_name='用户头像',upload_to='user_avatar/',max_length=128,default='media/user_avatar/default_avatar.png')
     user_createdate=models.DateTimeField(verbose_name='注册时间',default=timezone.now())
     user_birth=models.DateField(verbose_name='出生日期',null=True,blank=True)
     auth_choices=(
@@ -111,10 +115,10 @@ class Comments(models.Model):
     article=models.ForeignKey(verbose_name='评论的文章',to='Articles',to_field='id',on_delete=models.CASCADE)
     user=models.ForeignKey(verbose_name='评论者',to='Users',to_field='id',on_delete=models.CASCADE)
     comment_content=models.TextField(verbose_name='评论内容')
-    comment_like=models.BigIntegerField(verbose_name='点赞数')
+    comment_like=models.BigIntegerField(verbose_name='点赞数',default=0)
     #父评论关联自己的评论id
-    comment_fid=models.ForeignKey(verbose_name='父评论',to='Comments',to_field='id',on_delete=models.CASCADE)
-    comment_createdate=models.DateTimeField(verbose_name='创建时间')
+    comment_fid=models.ForeignKey(verbose_name='父评论',to='Comments',to_field='id',on_delete=models.CASCADE,default=1)
+    comment_createdate=models.DateTimeField(verbose_name='创建时间',default=timezone.now())
 
 class FriendsLink(models.Model):
     '''友链类'''

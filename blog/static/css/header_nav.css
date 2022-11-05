@@ -30,7 +30,7 @@ body {
     box-shadow: 0 0 5px silver;
     align-items: center;
     justify-content: center;
-
+    z-index: 8;
 }
 
 .header-div {

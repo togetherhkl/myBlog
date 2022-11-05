@@ -1,4 +1,6 @@
 # -*cding:utf-8-*-
+import json
+
 from django.db.models import Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.http import JsonResponse
@@ -14,7 +16,8 @@ def article_show(request):
         category = request.GET.get('category_id')
         if category:
             category = int(category)
-            queryset = models.Articles.objects.filter(category_id=category, user_id=1).all().order_by('-article_updatedate')  # 默认只显示xh这个用户的
+            queryset = models.Articles.objects.filter(category_id=category, user_id=1,article_auth=1).all().order_by('-article_updatedate')
+            # 默认只显示xh这个用户的,并且是允许分享的文章
             page = request.GET.get('page')
             page_obj = PagInation(queryset, 5, page, 2)
             data = {
@@ -42,6 +45,52 @@ def article_show(request):
                 'page_count': page_obj.page_count,
             }
             return render(request, 'articles_show.html', data)
+    if request.method=="POST":
+        if request.POST.get('type')=='add_comment':
+            data={}
+            #判断用户是否登录
+            if request.session['info']==None:
+                data['status']=400
+                data['msg']='请先登录'
+                return JsonResponse(data)
+            article_id=request.POST.get('article_id')
+            comment=request.POST.get('comment')
+            #插入数据库
+            models.Comments.objects.create(
+                article_id=article_id,
+                user_id=request.session['info']['id'],
+                comment_content=comment
+            )
+            data['status']=200
+            data['msg']='评论发表成功'
+            return JsonResponse(data)
+        if request.POST.get('type') == 'get_comment':
+            #获取相关的评论信息
+            data={'msg':'yyyy'}
+            article_id = request.POST.get('article_id')
+            instance=models.Comments.objects.filter(
+                article_id=article_id
+            ).values('comment_content','user__user_name','comment_createdate')
+            #把列表转化为json数据
+            data['values']=list(instance)
+            return JsonResponse(data)
+        if request.POST.get('type') == 'article_detail':
+            #获取文章的相关信息
+            data={'msg':'yes'}
+            article_id = request.POST.get('article_id')
+            instance=models.Articles.objects.filter(
+                user_id=1,
+                id=article_id,
+            ).values('article_title','user__user_name','article_createdate','article_updatedate')
+            #获取相关标签
+            tags=models.TagSetArticle.objects.filter(article_id=article_id).values(
+                'tag_id','tag__tag_name'
+            )
+            data['article_detail']=list(instance)
+            data['tags']=list(tags)
+            return JsonResponse(data)
+        return HttpResponse('请求错误')
+
 
 def article_gettags(request):
     '''获取某篇文章的所有标签'''
@@ -68,7 +117,8 @@ def article_show_page(request, nid):
     # bug思考，这里会导致越权访问，如果用户不止一个，他在这上面发表了文章，但是他又不想给别人看。
     # 这里通过修改前端get中的数字就可以越权访问到别人的文章
     article_id = nid
-    obj = models.Articles.objects.filter(id=article_id).first()
+    obj = models.Articles.objects.filter(id=article_id,user_id=1,article_auth=1).first()
+    #值运行查看xh并且分享的文章
     if not obj:
         status = 400
         msg = "文章不存在"
