@@ -33,7 +33,6 @@ class Category(models.Model):
     category_description=models.TextField(verbose_name='分类描述')
     category_createdate=models.DateTimeField(verbose_name='创建时间')
     fcategory=models.ForeignKey(verbose_name='父分类',to='FCategory',to_field='id',on_delete=models.CASCADE)
-    jumpaddress=models.CharField(verbose_name='跳转地址',max_length=128,default="#")
     user = models.ForeignKey(verbose_name='所属用户', to='Users', to_field='id', on_delete=models.CASCADE, default=1)
     def __str__(self):
         return self.category_name
