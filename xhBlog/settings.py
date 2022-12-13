@@ -27,11 +27,12 @@ DEBUG = True
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
 # ]
-ALLOWED_HOSTS = ['192.168.61.132','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.198.135', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',  # 注册app的名称
+    'vditor',
 ]
 
 MIDDLEWARE = [
@@ -49,17 +51,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'blog.middleware.auth.AuthMiddleWare'#激活登录的中间件
+    'blog.middleware.auth.AuthMiddleWare'  # 激活登录的中间件
     # 别忘记激活自己的中间件
 ]
 
 ROOT_URLCONF = 'xhBlog.urls'
-X_FRAME_OPTIONS='SAMEORIGIN'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 'DIRS': [],
+        'DIRS': [BASE_DIR / 'blog/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +126,7 @@ USE_I18N = True
 USE_L10N = True
 
 # USE_TZ = True
-USE_TZ = False#不启用时区时间
+USE_TZ = False  # 不启用时区时间
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -136,6 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MoalForm上传文件到media目录，添加的配置,可以在浏览器上访问文件
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # SECURE_CONTENT_TYPE_NOSNIFF=False
 # import mimetypes
@@ -144,3 +148,46 @@ MEDIA_URL = "/media/"
 # mimetypes.add_type('text/html','.html')
 # mimetypes.add_type('application/octet-stream”','.ts')
 # mimetypes.add_type('video/mp2t','.less')
+
+"""
+simpleui的配置信息
+"""
+# 隐藏右侧SimpleUI广告链接和使用分析
+SIMPLEUI_HOME_INFO = False
+SIMPLEUI_ANALYSIS = False
+
+SIMPLEUI_CONFIG = {
+    # 是否使用系统默认菜单。
+    'system_keep': True,
+
+    # 用于菜单排序和过滤, 不填此字段为默认排序和全部显示。 空列表[] 为全部不显示.
+
+    # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时刷新展示菜单内容。
+    # 一般建议关闭。
+    'dynamic': True,
+    'addmenus': [
+        {
+            'app': 'blog',
+            'name': '个人博客管理',
+            'icon': 'fas fa-user-shield',
+            'models': [
+                {
+                    'name': '博客内容管理',
+                    'icon': 'fa fa-user',
+                    'url': 'blog/manage/article/'
+                },
+                {
+                    'name': '博客数据分析',
+                    'icon': 'fa fa-th-list',
+                    'url': 'auth/group/'
+                },
+{
+                    'name': '创作博客',
+                    'icon': 'fa fa-th-list',
+                    'url': 'create/article/'
+                }
+            ]
+        },
+    ]
+
+}
